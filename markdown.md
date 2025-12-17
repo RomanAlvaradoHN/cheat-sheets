@@ -107,3 +107,39 @@ over the link. To add a title, enclose it in quotation marks after the URL.
 My favorite search engine is \[Duck Duck Go](https://duckduckgo.com "The best search engine for privacy"
 My favorite search engine is [Duck Duck Go](https://duckduckgo.com "The best search engine for privacy"
 
+# Horizontal Rules
+
+To create a horizontal rule, use three or more asterisks (***), dashes (---), or underscores (___) on a line by themselves.
+
+
+
+# Tables
+
+To add a table in Markdown, use the vertical line **|** to separate each column, and use three
+or more dashes **---** to create each column’s header. A vertical line should also be 
+added at either end of the row.
+
+> | Month    | Savings |
+> | -------- | ------- |
+> | January  | $250    |
+> | February | $80     |
+> | March    | $420    |
+
+or
+
+> | Item              | In Stock | Price |
+> | :---------------- | :------: | ----: |
+> | Python Hat        |   True   | 23.99 |
+> | SQL Hat           |   True   | 23.99 |
+> | Codecademy Tee    |  False   | 19.99 |
+> | Codecademy Hoodie |  False   | 42.99 |
+
+
+- **:--** means the column is left aligned.
+- **--:** means the column is right aligned.
+- **:-:** means the column is center aligned.
+
+
+
+
+
