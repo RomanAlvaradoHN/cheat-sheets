@@ -1,5 +1,4 @@
-
-# validate what action we are going to perform
+# validate what action we are going to perform 
 terraform plan
 
 # To applicate a terraform script (it will prompt to confirm changes) 
