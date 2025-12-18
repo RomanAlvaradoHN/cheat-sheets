@@ -9,7 +9,7 @@ Add number signs (*#*) in front of a word or phrase.
 - ##### ##### Adds a heading level 5
 - ###### ###### Adds a heading level 6
 
-> #### Note
+> #### Notes
 > - For compatibility, always put a space between the number signs and the heading name.  
 > - You should also put blank lines before and after a heading for compatibility.
 
@@ -62,9 +62,9 @@ To create a line break or new line (\<br>), **end a line with two or more spaces
 To create an ordered list, add line items with numbers followed by periods. The numbers don’t have to be  
 in numerical order, but the list should start with the number one.
 
-1. 1. First item
-2. 2. Second item
-3. 3. Third item 
+1. \1. First item
+2. \2. Second item
+3. \3. Third item 
 
 \1. First item
 \1. Second item
