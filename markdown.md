@@ -1,6 +1,6 @@
 # Headings
 
-Add number signs ( **#** ) in front of a word or phrase.
+Add number signs (#) in front of a word or phrase.
 
 - # # Adds a heading level 1
 - ## ## Adds a heading level 2
@@ -59,7 +59,7 @@ to be in numerical order, but the list should start with the number one.
 
 \1. First item
 \2. Second item
-\3. Third item
+\3. Third item 
 
 \1. First item
 \1. Second item
