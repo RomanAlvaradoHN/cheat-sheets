@@ -90,14 +90,14 @@ To denote a word or phrase as code, enclose it in backticks ( ` ).
 You can also use three consecutive backticks to create a multiline code bock and right after the   
 first three backticks, you must indicate the code language name with [language-name].
 
-\`dnf install -y git\`   
+\`dnf install -y git\`  
 `dnf install -y git`
 
   
 \```[python]  
 def hello_world():  
-    print("Hello, world!")  
-\```  
+&emsp;print("Hello, world!")  
+\```
 ```[python]
 def hello_world():
    print("Hello, world!")
@@ -117,14 +117,14 @@ def hello_world():
 To create a link, enclose the link text in brackets and then follow it immediately with the URL in parentheses.
 
 My favorite search engine is \[Duck Duck Go](https://duckduckgo.com).  
-- My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
 
 
 You can optionally add a title for a link. This will appear as a tooltip when the user hovers over the link.  
 To add a title, enclose it in quotation marks after the URL.  
 
 My favorite search engine is \[Duck Duck Go](https://duckduckgo.com)"The best search engine for privacy"  
-- My favorite search engine is [Duck Duck Go](https://duckduckgo.com)"The best search engine for privacy"  
+My favorite search engine is [Duck Duck Go](https://duckduckgo.com)"The best search engine for privacy"  
 
 # Horizontal Rules
 
