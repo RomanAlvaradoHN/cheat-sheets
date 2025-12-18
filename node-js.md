@@ -24,6 +24,10 @@ nvm current
 
 # Switching Node Versions with NVM
 
+### List Available Node Versions
+
+Before switching, you can use the **`nvm ls`** command to see what Node.js versions are installed.
+
 NVM provides simple yet powerful commands to switch between different Node.js versions.  
 The most basic command is **`nvm use <node>`**, which allows you to activate an installed Node.js version.
 
@@ -32,10 +36,6 @@ nvm use 24.0.2
 ```
 output:  
 > Now using node v24.0.2
-
-### List Available Node Versions
-
-Before switching, you can use the **`nvm ls`** command to see what Node.js versions are installed.
 
 > ### Note
 > You can just specify the major version number, and NVM will use the latest installed  
