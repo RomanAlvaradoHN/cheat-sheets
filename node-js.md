@@ -37,12 +37,16 @@ nvm use 24.0.2
 output:  
 > Now using node v24.0.2
 
-> ### Note
-> You can just specify the major version number, and NVM will use the latest installed  
-> version of that major version.
->```[bash]
->nvm use 14
->```
+Note  
+You can just specify the major version number, and NVM will use the latest installed  
+version of that major version.
+> ```[bash]
+> nvm use 14
+> ```
+output:
+>> ```[bash]
+>> Now using node v14.21.3 (npm v6.14.18)
+>> ```
 
 ### Automatic Version Switching with .nvmrc Files
 
