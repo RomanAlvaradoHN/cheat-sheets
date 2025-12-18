@@ -39,13 +39,13 @@ The most basic command is **`nvm use <node>`**, which allows you to activate an 
 >> output:  
 >> Now using node v24.0.2
 
-Note  
+#### Note:  
 You can just specify the major version number, and NVM will use the latest installed  
 version of that major version.
 > ```[bash]
 > nvm use 14
 > ```
->> output:
+>> output:  
 >> Now using node v14.21.3 (npm v6.14.18)
 
 ### Automatic Version Switching with .nvmrc Files
@@ -55,15 +55,15 @@ number as its content.
 Then, simply run the **`nvm use`** command (without arguments), and NVM will read the version  
 from the .nvmrc file and switch to that version automatically.
 
-```[bash]
-echo "16.14.0" > .nvmrc
-nvm use
-```
-output:  
->Found '/path/to/project/.nvmrc' with version <16.14.0>
->Now using node v16.14.0 (npm v8.3.1)
+> ```[bash]
+> echo "16.14.0" > .nvmrc
+> nvm use
+> ```
+>> output:  
+>> Found '/path/to/project/.nvmrc' with version <16.14.0>
+>> Now using node v16.14.0 (npm v8.3.1)
 
-### `nvm use` Command Parameters
+# Summary `nvm use` Command Parameters
 
 | Parameter  | Description                                                 |
 | :--------  | :---------------------------------------------------------- |
