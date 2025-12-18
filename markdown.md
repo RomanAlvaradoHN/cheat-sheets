@@ -1,6 +1,6 @@
 # Headings
 
-Add number signs (#) in front of a word or phrase.
+Add number signs (**#**) in front of a word or phrase.
 
 - # # Adds a heading level 1
 - ## ## Adds a heading level 2
