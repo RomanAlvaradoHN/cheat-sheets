@@ -10,15 +10,16 @@ Add number signs (*#*) in front of a word or phrase.
 - ###### ###### Adds a heading level 6
 
 > #### Note
-> - For compatibility, always put a space between the number signs and the heading name.
+> - For compatibility, always put a space between the number signs and the heading name.  
 > - You should also put blank lines before and after a heading for compatibility.
 
 # Emphasis
 
 ## Bold
 
-To bold text, add two asterisks or underscores before and after a word or phrase. To bold the middle
-of a word for emphasis, add two asterisks without spaces around the letters.
+To bold text, add two asterisks or underscores before and after a word or phrase.  
+To bold the middle of a word for emphasis, add two asterisks without spaces  
+around the letters.
 
 - I just love **\*\*bold text\*\***.
 - I just love __\_\_bold text\_\___.
@@ -26,8 +27,9 @@ of a word for emphasis, add two asterisks without spaces around the letters.
 
 ## Italic
 
-To italicize text, add one asterisk or underscore before and after a word or phrase. To italicize the
-middle of a word for emphasis, add one asterisk without spaces around the letters.
+To italicize text, add one asterisk or underscore before and after a word or phrase.  
+To italicize the middle of a word for emphasis, add one asterisk without spaces  
+around the letters.
 
 - Italicized text is the *\*cat's meow\**.
 - Italicized text is the _\_cat's meow\__.
@@ -35,33 +37,37 @@ middle of a word for emphasis, add one asterisk without spaces around the letter
 
 ## Bold and Italic
 
-To emphasize text with bold and italics at the same time, add three asterisks or underscores before and
-after a word or phrase. To bold and italicize the middle of a word for emphasis, add three asterisks
-without spaces around the letters.
+To emphasize text with bold and italics at the same time, add three asterisks or  
+underscores before and after a word or phrase. To bold and italicize the middle  
+of a word for emphasis, add three asterisks without spaces around the letters.
 
 - This text is ***\*\*\*really important\*\*\****.
 - This text is ___\_\_\_really important\_\_\____.
 
 # Blockquotes
 
-To create a blockquote, add a **>** in front of a paragraph.
-
+To create a blockquote, add a **>** in front of a paragraph.  
 Blockquotes can be nested. Add a **>>** in front of the paragraph you want to nest.
 
 > ### Note
-> Blockquotes can contain other Markdown formatted elements.
+> Blockquotes can contain other Markdown formatted elements.  
 > Not all elements can be used — you’ll need to experiment to see which ones work.
+
+# Line Breaks
+
+To create a line break or new line (<br>), **end a line with two or more spaces, and then type return**.
 
 # Lists
 
 ### Ordered Lists
 
-To create an ordered list, add line items with numbers followed by periods. The numbers don’t have
-to be in numerical order, but the list should start with the number one.
+To create an ordered list, add line items with numbers followed by periods.  
+The numbers don’t have to be in numerical order, but the list should start  
+with the number one.
 
-\1. First item
-\2. Second item
-\3. Third item 
+1. 1. First item
+2. 2. Second item
+3. 3. Third item 
 
 \1. First item
 \1. Second item
