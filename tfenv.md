@@ -10,7 +10,10 @@ Go to [this link](https://github.com/tfutils/tfenv) to see the most recent instr
 2. Add the environment variable:  
 `echo 'export PATH="$PATH:$HOME/.tfenv/bin"' >> ~/.bashrc`
 
-3. Verify the installation:  
+3. Apply the environment variable:  
+`source ~/.bashrc`
+
+4. Verify the installation:  
 `tfenv --version`
 
 
