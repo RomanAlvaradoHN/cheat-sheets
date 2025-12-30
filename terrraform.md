@@ -19,7 +19,7 @@ Go to [this link](https://github.com/tfutils/tfenv) to see the most recent instr
 
 ## Usage
 
-- Install a specific version of Terraform:  
+1. Install a specific version of Terraform:  
 `tfenv install [version]`
 
 #### Parameters options:
@@ -32,13 +32,24 @@ Go to [this link](https://github.com/tfutils/tfenv) to see the most recent instr
 | latest:<regex> | Install latest version matching regex (used by grep -e)                 |
 
 
-> #### NOTE
-> If no parameter is passed, the version to use is resolved automatically via:  
-> 1. **TFENV_TERRAFORM_VERSION** environment variable
-> 2. **.terraform-version** file
-> The default is '**latest**' if none are found.
+#### Note
+If no parameter is passed, the version to use is resolved automatically via:  
+1. **TFENV_TERRAFORM_VERSION** environment variable.
+2. **.terraform-version** file.  
+The default is '**latest**' if none are found.
+
+2. To list installed versions:  
+`tfenv list`
+
+3. Switch a version to use:  
+`tfenv use [version]`
+
+4. To uninstall a specific version:  
+`tfenv uninstall [version]`
 
 ___
+
+
 
 # TERRAFORM COMMANDS
 
