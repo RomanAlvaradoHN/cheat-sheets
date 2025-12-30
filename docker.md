@@ -23,7 +23,7 @@ Go to [this link](https://docs.docker.com/engine/install/) to see the most recen
     Signed-By: /etc/apt/keyrings/docker.asc  
     EOF
     ```  
-`sudo apt update`  
+    `sudo apt update`  
 
 
 3. Install the latest version:  
