@@ -47,7 +47,7 @@ asterisks without spaces around the letters.
 To create a blockquote, add a > in front of a paragraph. Blockquotes can be nested. Add a >> in front  
 of the paragraph you want to nest. Example:  
 
-\> ### Note
+\> ### Note  
 \> Blockquotes can contain other Markdown formatted elements. Not all elements can be used — you’ll need  
 \> to experiment to see which ones work.
 
