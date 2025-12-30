@@ -1,14 +1,14 @@
 # Installation Steps
 
-To see the most recent information go to [this link](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html).
+Go to [this link](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html) to see the most recent information.
 
-1. You need to ensure you have uninstalled previous versions:  
+1. You need to ensure you have uninstalled any previous versions:  
 `sudo apt remove awscli`
 
 2. Download the compressed file:  
-`curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+`curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"`
 
-3. Unzip the file:  
+3. Unzip the downloaded file:  
 `unzip awscliv2.zip`
 
 4. Install aws-cli:  
@@ -20,7 +20,7 @@ To see the most recent information go to [this link](https://docs.aws.amazon.com
 6. Verify the installation:  
 `aws --version`
 
-## Optional steps
+### Optional steps
 
 7. customize commands:  
 ```[bash]
@@ -30,7 +30,7 @@ source ~/.bashrc
 ```
     
 
-# COMANDS
+### COMMANDS
 
 - Add a profile:  
 `aws-vault add [profile-name]`
