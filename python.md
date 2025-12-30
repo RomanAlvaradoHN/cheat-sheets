@@ -8,9 +8,9 @@ Go to [this link](https://github.com/pyenv/pyenv) to see the most recent instruc
 `curl -fsSL https://pyenv.run | bash`
 
 2. Add the environment variables:  
-> `echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc`  
-> `echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc`  
-> `echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc`  
+`echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc`  
+`echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc`  
+`echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc`  
 
 3. Restart the shell:  
 `source ~/.bashrc`
