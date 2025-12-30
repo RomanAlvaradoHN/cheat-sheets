@@ -35,4 +35,6 @@ Go to [this link](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting
 | Command                                             |Meaning                                      |
 | :------                                             | :------                                     |
 | `aws-vault add [profile-name]`                      | Adds a profile to the vault                 |
+| `aws-vault list`                                    | To see added profiles                       |
 | `aws-vault exec [profile-name] --duration=[hours]h` | Set up a profile session                    |
+| `aws-vault rm [profile-name]`                       | To delete a profile                         |

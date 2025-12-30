@@ -1,3 +1,13 @@
+# ANSIBLE
+
+## Installation Steps
+
+Go to [this link](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html) to see the most recent information.
+
+
+___
+
+
 # Para correr localmente un playbook
 ansible-playbook -vvv  ./playbooks/web_build_env_local.yml  -e "jenkins_workspace=." -e "app_repo_name=wgsn-web" -l 'prod'
 
