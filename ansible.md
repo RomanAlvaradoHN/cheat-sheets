@@ -1,8 +1,23 @@
 # ANSIBLE
 
+
 ## Installation Steps
 
 Go to [this link](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html) to see the most recent information.
+
+1. Ensure `pip` is available:  
+`python3 -m pip -V`
+
+2. Install Ansible:  
+
+| Command                                            | Description                                                   |
+| :------                                            | :----------                                                   |
+| python3 -m pip install --user ansible              | Install the full Ansible package for the current user         |
+| python3 -m pip install --user ansible-core         | Install the minimal ansible-core package for the current user |
+| python3 -m pip install --user ansible-core==2.12.3 | Install a specific version of ansible-core                    |
+
+3. Verify Installation
+`ansible --version`
 
 
 ___
