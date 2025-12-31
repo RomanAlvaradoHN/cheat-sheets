@@ -9,6 +9,7 @@ Go to [this link](https://docs.ansible.com/projects/ansible/latest/installation_
 `python3 -m pip -V`
 
 2. Install Ansible:  
+
 | Command                                            | Description                                                   |
 | :------                                            | :----------                                                   |
 | python3 -m pip install --user ansible              | Install the full Ansible package for the current user         |
