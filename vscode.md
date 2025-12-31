@@ -28,8 +28,8 @@
 ## Configurations
 
 - Adjust VS Code Settings for Terminal Keybindings  
-    1. Go to File > Preferences > Settings
-    2. Search for `terminal.integrated.allowchords`
+    1. Go to **File > Preferences > Settings**
+    2. Search for `terminal.integrated.allowChords`
     3. Uncheck or disable this setting to ensure the combination key is passed directly to the shell.
 
 
