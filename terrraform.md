@@ -49,9 +49,12 @@ ___
 
 # TERRAFORM COMMANDS
 
-| Command           | Meaning                                          |
-| :------           | :------                                          |
-| terraform plan    | To validate what actions we are going to perform |
-| terraform apply   | To applicate changes                             |
-| terraform destroy | To destroy a service or resource                 |
-| terraform import  | To import as a terraform file an amazon resource |
+| Command            | Meaning                                                                         |
+| :------            | :------                                                                         |
+| terraform plan     | To validate what actions we are going to perform                                |
+| terraform apply    | To applicate changes                                                            |
+| terraform destroy  | To destroy a service or resource                                                |
+| terraform import   | To import as a terraform file an amazon resource                                |
+| terraform fmt      | Tries to give standart terraform format                                         |
+| terraform validate | Checks that your configuration is syntactically valid and internally consistent |
+
