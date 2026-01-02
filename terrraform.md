@@ -17,14 +17,20 @@ Go to [this link](https://github.com/tfutils/tfenv) to see the most recent instr
 `tfenv --version`
 
 
-## TFENV COMMANDS
+## TFENV COMMANDS (`tfenv --help`)
 
-| Command                     | Meaning                                 |
-| :------                     | :------                                 |
-| `tfenv install [version]`   | Install a specific version of Terraform |
-| `tfenv list`                | To list installed versions              |
-| `tfenv use [version]`       | Switch a version to use                 |
-| `tfenv uninstall [version]` | To uninstall a specific version         |
+| Command                     | Meaning                                             |
+| :------                     | :------                                             |
+| `tfenv install [version]`   | Install a specific version of Terraform             |
+| `tfenv use [version]`       | Switch a version to use                             |
+| `tfenv uninstall [version]` | To uninstall a specific version                     |
+| `tfenv list`                | To list installed versions                          |
+| `tfenv list-remote`         | To list installable versions                        |
+| `tfenv version-name`        | Print current version                               |
+| `tfenv init`                | Update environment to use tfenv correctly           |
+| `tfenv pin`                 | Write active current version to./.terraform-version |
+
+
 
 #### Parameters options:
 | Parameter      | Meaning                                                                 |
