@@ -25,7 +25,7 @@ OR
 grant all privileges on all tables in schema public to [username];  
 ```
 
-# GRANT ROLS TO A USER
+# GRANT ROLE TO A USER
 
 ``` sql
 grant [role_name] to [username];  
