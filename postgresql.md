@@ -7,6 +7,27 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 **The concept of roles subsumes the concepts of “users” and “groups”.** In PostgreSQL versions before 8.1, users and groups were distinct kinds of entities, but now there are only roles. Any role can act as a user, a group, or both.
 
+## User Creation Commands
+
+1. Create role:  
+`create role [rolename];`  
+`create role [rolename] LOGIN;`  
+`create user [rolename];`  this command includes the LOGIN privilege by default.
+`create role [rolename] password '[password_string]';`
+
+> #### Note  
+> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database connection.  
+> A role with the LOGIN attribute can be considered the same as a “database user”.
+
+2. Remove an existing role:  
+`drop role [rolename]`
+
+3. To determine the set of existing roles, examine the `pg_roles` system catalog:  
+`select * from pg_roles;`
+
+
+
+
 
 ``` sql
 --create user and password (implicit login)
