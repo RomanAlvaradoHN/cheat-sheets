@@ -82,9 +82,9 @@ from
 	cross join pg_roles r
 where
 	,has_database_privilege(r.rolname, d.datname, 'CONNECT') = false
-	and d.datistemplate   = false 
-	and r.rolcanlogin = true
-	and r.rolname     = [rolename]
+	and d.datistemplate = false 
+	and r.rolcanlogin   = true
+	and r.rolname       = [rolename]
 order by
 	username
 ;
@@ -92,14 +92,14 @@ order by
 
 - To see user CRUD permissions on tables:  
 ``` sql
-SELECT 
-    grantee AS usuario,
-    table_schema AS esquema,
-    table_name AS tabla,
-    privilege_type AS tipo_permiso
-FROM 
+select 
+    grantee        as rolename,
+    table_schema   as schema,
+    table_name     as table,
+    privilege_type as CRUD
+from 
     information_schema.role_table_grants 
-WHERE 
+where 
     grantee = '[username]' 
     --and privilege_type = 'UPDATE'
 ;
@@ -108,7 +108,7 @@ WHERE
 - To see user membership:  
 ``` sql
 select 
-	u.rolname as rolename
+	u.rolname  as rolename
     ,m.rolname as group  
 from
 	pg_auth_members a
