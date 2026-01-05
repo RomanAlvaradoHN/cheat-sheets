@@ -9,23 +9,25 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 ## Role Management Commands
 
-1. ## Create role:  
-`create role [rolename];`  
-`create role [rolename] LOGIN;`  
-`create user [rolename];`  this command includes the LOGIN privilege by default.  
-`create role [rolename] password '[password_string]';`
+1. #### Create role:  
+	`create role [rolename];`  
+	`create role [rolename] LOGIN;`  
+	`create user [rolename];`  this command includes the LOGIN privilege by default.  
+	`create role [rolename] password '[password_string]';`
 
-	> #### Note  
-	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database connection.  
+	###### Note  
+
+	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database  
+	> connection.  
 	> A role with the LOGIN attribute can be considered the same as a “database user”.
 
-2. ## Remove an existing role:  
-`drop role [rolename]`
+2. #### Remove an existing role:  
+	`drop role [rolename];`  
 
-3. To determine the set of existing roles, examine the `pg_roles` system catalog:  
+3. #### To determine the set of existing roles, examine the `pg_roles` system catalog:  
 `select * from pg_roles;`
 
-4. ## Role Membership:  
+2. #### Role Membership:  
 It is frequently convenient to group users together to ease management of privileges: that way, privileges  
 can be granted to, or revoked from, a group as a whole.  
 PostgreSQL this is done by creating a role that represents the group, and then granting membership in the  
