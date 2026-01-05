@@ -102,7 +102,7 @@ select
 from 
     information_schema.role_table_grants 
 where 
-    grantee = '[username]' 
+    grantee = '[rolename]' 
     --and privilege_type = 'UPDATE'
 ;
 ```
