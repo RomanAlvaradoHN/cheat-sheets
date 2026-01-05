@@ -33,7 +33,7 @@ Roles can own database objects (for example, tables and functions) and can assig
 	PostgreSQL this is done by creating a role that represents the group, and then granting membership in the  
 	group role to individual user roles.
 
-	#### To set up a group role:
+	To set up a group role:
 
 	1. Create the role:  
 		`create role [rolename];`  
@@ -45,42 +45,34 @@ Roles can own database objects (for example, tables and functions) and can assig
 		`revoke [group_role] from [rolename];`  
 
 
+# DATABASE PRIVILEGES
+
+#### Grants
+
+- To allow user to connect to a database:  
+`grant connect on database [database] to [username];`  
+
+- To allow a user work in a schema:  
+`grant usage on schema [schema_name] to [username];`  
+
+- To allow CRUD operations to a user:  
+`grant select, insert, update, delete on all tables in schema public to [username];`  
+
+#### Revoke
+
+- To revoke connect privilege (login capabilities):  
+`revoke connect on database [database] from [username];`  
+
+- To revoke schema privilege:  
+`revoke usage on schema [schema_name] from [username];`  
+
+- To revoke CRUD privilege:
+`revoke select, insert, update, delete on all tables in schema public from [username];`
 
 
+# CUSTOM QUERIES
 
-
-# GRANT CONNECT TO A DATABASE
-
-``` sql
-grant connect on database [database] to [username];  
-```
-
-# GRANT USAGE TO A SCHEMA
-
-``` sql
-grant usage on schema [schema_name] to [username];
-```
-
-# GRANT PRIVILEGES TO A USER
-
-``` sql
-grant select, insert, update, delete on all tables in schema public to [username];  
-
-OR  
-
-grant all privileges on all tables in schema public to [username];  
-```
-
-# GRANT ROLE TO A USER
-
-``` sql
-grant [role_name] to [username];  
-```
-
-
-
-# TO SEE DATABASE USERS
-
+- To see users and which databses they are allowed to connect:  
 ``` sql
 select 
     r.rolname  as username
@@ -98,24 +90,17 @@ order by
 ;
 ```
 
-
-
-
-
-# REVOKE PRIVILEGES TO USER
-
+- To see user CRUD permissions on tables:  
 ``` sql
-revoke privilege select on schema public from [username];  
-```
-
-# TO SEE DATABASES
-
-``` sql
-select * from pg_database where datistemplate = false;
-```
-
-# TO SEE ROLES
-
-``` sql
-select * from pg_roles;
+SELECT 
+    grantee AS usuario,
+    table_schema AS esquema,
+    table_name AS tabla,
+    privilege_type AS tipo_permiso
+FROM 
+    information_schema.role_table_grants 
+WHERE 
+    grantee = '[username]' 
+    --and privilege_type = 'UPDATE'
+;
 ```
