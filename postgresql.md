@@ -81,7 +81,7 @@ from
 	pg_database         d
 	cross join pg_roles r
 where
-	,has_database_privilege(r.rolname, d.datname, 'CONNECT') = false
+	has_database_privilege(r.rolname, d.datname, 'CONNECT') = true
 	and d.datistemplate = false 
 	and r.rolcanlogin   = true
 	and r.rolname       = [rolename]
