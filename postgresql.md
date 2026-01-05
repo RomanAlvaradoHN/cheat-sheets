@@ -12,12 +12,12 @@ Roles can own database objects (for example, tables and functions) and can assig
 1. Create role:  
 `create role [rolename];`  
 `create role [rolename] LOGIN;`  
-`create user [rolename];`  this command includes the LOGIN privilege by default.
+`create user [rolename];`  this command includes the LOGIN privilege by default.  
 `create role [rolename] password '[password_string]';`
 
-> #### Note  
-> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database connection.  
-> A role with the LOGIN attribute can be considered the same as a “database user”.
+	> #### Note  
+	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database connection.  
+	> A role with the LOGIN attribute can be considered the same as a “database user”.
 
 2. Remove an existing role:  
 `drop role [rolename]`
