@@ -121,3 +121,35 @@ where
 	u.rolname = '[rolename]';
 ;
 ```
+
+``` sql
+--To see user membership:
+
+``` sql
+--To see user membership:
+
+``` sql
+--To see user membership:
+select has_schema_privilege('prosper_read', 'public', 'USAGE');
+select has_table_privilege('prosper_read', 'public.canvas_notes', 'UPDATE');
+
+
+export POSTGRES_USER="prosper_read"
+export RDSHOST="test-aurora-cluster.cluster-c3egqygesn6f.us-west-1.rds.amazonaws.com"
+export PGPASSWORD="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region us-west-1 --username $POSTGRES_USER )"
+
+
+-- Como superusuario corre:
+ALTER DEFAULT PRIVILEGES FOR ROLE deploy_user IN SCHEMA public 
+GRANT SELECT ON TABLES TO analista_datos;
+
+
+
+--to validate CRUD privileges and schema usage
+select
+	has_schema_privilege('ryan', 'public', 'USAGE')     as schema_usage
+	,has_table_privilege('ryan', 'coupons', 'select') as grant_select
+	,has_table_privilege('ryan', 'coupons', 'update') as grant_update
+	,has_table_privilege('ryan', 'coupons', 'insert') as grant_insert
+	,has_table_privilege('ryan', 'coupons', 'delete') as grant_delete
+;
