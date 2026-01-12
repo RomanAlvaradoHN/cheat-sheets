@@ -55,7 +55,7 @@ validate_argument(){
     if [[ -z $1 ]]; then
         return 0
     fi
-    
+
     for arg in "${valid_args[@]}"; do
         if [[ $arg = $1 ]]; then
             return 0
@@ -158,15 +158,15 @@ initialize_script(){
         "--connect")
             connect_to_aurora_db $2
             ;;
-        
+
         "--get-token")
-            get_new_token $2
+            get_new_token
             ;;
-        
+
         "--show-token")
             show_current_token
             ;;
-        
+
         "--reset-env")
             reset_environment
             ;;
