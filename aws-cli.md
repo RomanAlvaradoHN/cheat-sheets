@@ -40,7 +40,7 @@ aws --version
 
 Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent information.
 
-1. Download the latest binary version from [this link.](https://github.com/byteness/aws-vault/releases/latest)
+1. Download the latest binary version from [this link.](https://github.com/byteness/aws-vault/releases/latest){:target="_blank"}
     ```bash
     curl -fsSl https://github.com/ByteNess/aws-vault/releases/download/v7.9.3/aws-vault-linux-amd64 -o ~/aws/aws-vault
     ```

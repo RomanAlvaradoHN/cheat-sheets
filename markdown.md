@@ -112,8 +112,8 @@ def hello_world():
 
 To create a link, enclose the link text in brackets and then follow it immediately with the URL in parentheses.
 
-My favorite search engine is \[Duck Duck Go](https://duckduckgo.com).  
-My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+My favorite search engine is \[Duck Duck Go](https://duckduckgo.com){:target="_blank"}.  
+My favorite search engine is [Duck Duck Go](https://duckduckgo.com){:target="_blank"}.
 
 # Horizontal Rules
 
