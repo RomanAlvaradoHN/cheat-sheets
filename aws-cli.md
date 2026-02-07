@@ -5,34 +5,34 @@
 Go to [this link](https://docs.aws.amazon.com/en_us/cli/latest/userguide/getting-started-install.html) to see the most recent information.
 
 1. You need to ensure you have uninstalled any previous versions:  
-```bash
-sudo apt remove awscli
-```
+    ```bash
+    sudo apt remove awscli
+    ```
 
 2. Download the compressed file:  
-```bash
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-```
+    ```bash
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    ```
 
 3. Unzip the downloaded file:  
-```bash
-unzip awscliv2.zip
-```
+    ```bash
+    unzip awscliv2.zip
+    ```
 
 4. Install aws-cli:  
-```bash
-sudo ./aws/install
-```
+    ```bash
+    sudo ./aws/install
+    ```
 
 5. Restart the shell:  
-```bash
-source ~/.bashrc
-```
+    ```bash
+    source ~/.bashrc
+    ```
 
 6. Verify installation:  
-```bash
-aws --version
-```
+    ```bash
+    aws --version
+    ```
 
 # AWS-VAULT
 
@@ -46,16 +46,16 @@ Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent 
     ```
 
 2. Add the environment variable:  
-```bash
-echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
-```
+    ```bash
+    echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
+    ```
 
 3. create commands aliases (optional):  
-```bash
-echo "alias av='aws-vault'" >> ~/.bashrc
-echo "alias ave='aws-vault exec'" >> ~/.bashrc
-source ~/.bashrc
-```
+    ```bash
+    echo "alias av='aws-vault'" >> ~/.bashrc
+    echo "alias ave='aws-vault exec'" >> ~/.bashrc
+    source ~/.bashrc
+    ```
 
 ## AWS-VAULT COMMANDS
 
