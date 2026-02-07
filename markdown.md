@@ -112,10 +112,9 @@ def hello_world():
 
 To create a link, enclose the link text in brackets and then follow it immediately with the URL in parentheses.
 
-1. My favorite search engine is \[Duck Duck Go](https://duckduckgo.com).  
-2. With html a tag `<a href="https://example.com" target="_blank" rel="noopener noreferrer">link markdown</a>`  
+My favorite search engine is \[Duck Duck Go](https://duckduckgo.com).  
 My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
-Normal html <a href="https://example.com" target="_blank" rel="noopener noreferrer">link a tag</a>
+
 
 # Horizontal Rules
 
