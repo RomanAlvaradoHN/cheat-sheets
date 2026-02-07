@@ -45,7 +45,7 @@ Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent 
     curl -L -o /usr/local/bin/aws-vault https://github.com/ByteNess/aws-vault/releases/download/v7.9.3/aws-vault-linux-amd64
     ```
 
-2. Add execution rights
+2. Add execution rights:
     ```bash
     sudo chmod +x /usr/local/bin/aws-vault
     ```
