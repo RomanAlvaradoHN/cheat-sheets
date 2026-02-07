@@ -5,18 +5,26 @@ Go to [this link](https://www.nvmnode.com/guide/installation.html) to see the mo
 ##  Installation Steps
 
 1. Get the required files:  
-`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash`
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    ```
 
 2. Add the environment variables:  
-`echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc`  
-`echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc`  
-`echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.bashrc`  
+    ```bash
+    echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
+    echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.bashrc
+    ```
 
 3. Restart the shell:  
-`source ~/.bashrc`
+    ```bash
+    source ~/.bashrc
+    ```
 
 4. Verify installation:  
-`nvm --version`
+    ```bash
+    nvm --version
+    ```
 
 
 ## NVM COMMANDS
