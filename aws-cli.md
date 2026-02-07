@@ -24,29 +24,40 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-5. Add the environment variable:  
-```bash
-echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
-```
-
-6. Restart the shell:  
+5. Restart the shell:  
 ```bash
 source ~/.bashrc
 ```
 
-7. Verify installation:  
+6. Verify installation:  
 ```bash
 aws --version
 ```
 
-8. create commands aliases (optional):  
+# AWS-VAULT
+
+## Installation Steps
+
+Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent information.
+
+1. Download the latest binary version from [this link.](https://github.com/byteness/aws-vault/releases/latest)
+    ```bash
+    curl -fsSl https://github.com/ByteNess/aws-vault/releases/download/v7.9.3/aws-vault-linux-amd64 -o ~/aws/aws-vault
+    ```
+
+2. Add the environment variable:  
+```bash
+echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
+```
+
+3. create commands aliases (optional):  
 ```bash
 echo "alias av='aws-vault'" >> ~/.bashrc
 echo "alias ave='aws-vault exec'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## AWS-CLI COMMANDS
+## AWS-VAULT COMMANDS
 
 | Command                                             |Meaning                                      |
 | :------                                             | :------                                     |
@@ -54,9 +65,3 @@ source ~/.bashrc
 | `aws-vault list`                                    | To see added profiles                       |
 | `aws-vault exec [profile-name] --duration=[hours]h` | Set up a profile session                    |
 | `aws-vault rm [profile-name]`                       | To delete a profile                         |
-
-## Install RDS Aurora Database Tool
-```bash
-echo 'export PATH="$PATH:'"$(pwd)/scripts"\" >> ~/.bashrc
-source ~/.bashrc
-```
