@@ -52,6 +52,7 @@ Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent 
 
 3. Add the environment variables and aliases:  
     ```bash
+    echo "\\r\\r" >> ~/.bashrc
     echo "#aws-vault configs =================================" >> ~/.bashrc
     echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
     echo "alias av='aws-vault'" >> ~/.bashrc
