@@ -11,6 +11,8 @@ Go to [this link](https://github.com/pyenv/pyenv) to see the most recent instruc
 
 2. Add the environment variables:  
     ```bash
+    echo -e "\n\n" >> ~/.bashrc
+    echo '#python configs ======================================='
     echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
     echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc

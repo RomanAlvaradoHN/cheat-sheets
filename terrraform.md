@@ -9,12 +9,14 @@ Go to [this link](https://github.com/tfutils/tfenv) to see the most recent instr
     git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
     ```
 
-2. Add the environment variable:  
+2. Add the environment variables and aliases:  
     ```bash
+    echo -e "\n\n" >> ~/.bashrc
+    echo '#terraform configs ====================================' >> ~/.bashrc
     echo 'export PATH="$PATH:$HOME/.tfenv/bin"' >> ~/.bashrc
     ```
 
-3. Apply the environment variable:  
+3. Restart the shell:  
     ```bash
     source ~/.bashrc
     ```

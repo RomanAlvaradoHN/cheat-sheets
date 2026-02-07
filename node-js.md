@@ -11,6 +11,8 @@ Go to [this link](https://www.nvmnode.com/guide/installation.html) to see the mo
 
 2. Add the environment variables:  
     ```bash
+    echo -e "\n\n" >> ~/.bashrc
+    echo '#node-js configs ======================================' >> ~/.bashrc
     echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc
     echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
     echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.bashrc

@@ -53,15 +53,20 @@ Go to [this link](https://github.com/ByteNess/aws-vault) to see the most recent 
 3. Add the environment variables and aliases:  
     ```bash
     echo -e "\n\n" >> ~/.bashrc
-    echo "#aws-vault configs =================================" >> ~/.bashrc
+    echo "#aws-vault configs ====================================" >> ~/.bashrc
     echo "AWS_VAULT_BACKEND=file" >> ~/.bashrc
     echo "alias av='aws-vault'" >> ~/.bashrc
     echo "alias ave='aws-vault exec'" >> ~/.bashrc
     ```
 
-4. Apply configs:  
+4. Restart the shell:  
     ```bash    
     source ~/.bashrc
+    ```
+
+5. Verify installation:
+    ```bash
+    aws-vault --version
     ```
 
 ## AWS-VAULT COMMANDS
