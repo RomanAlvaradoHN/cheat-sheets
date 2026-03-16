@@ -3,7 +3,7 @@
 # Global Configuration ==============================================
 ENV_VARIABLES=(
     "AWS_REGION"
-    "ENDPOINT_NAME"
+    "CLUSTER_ENDPOINT"
     "PORT"
     "DATABASE"
     "USERNAME"
@@ -118,13 +118,13 @@ validate_environments(){
 connect_to_aurora_db(){
     validate_requirements $1
     validate_environments
-    psql -h "$ENDPOINT_NAME" -p "$PORT" -U "$USERNAME" "$DATABASE"
+    psql -h "$CLUSTER_ENDPOINT" -p "$PORT" -U "$USERNAME" "$DATABASE"
 }
 
 get_new_token(){
     validate_requirements $1
     validate_environments
-    PGPASSWORD="$(aws rds generate-db-auth-token --hostname "$ENDPOINT_NAME" --port $PORT --region $AWS_REGION --username "$USERNAME")"
+    PGPASSWORD="$(aws rds generate-db-auth-token --hostname "$CLUSTER_ENDPOINT" --port $PORT --region $AWS_REGION --username "$USERNAME")"
     echo ""
     echo $PGPASSWORD
     echo ""
