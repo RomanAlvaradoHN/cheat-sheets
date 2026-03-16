@@ -160,7 +160,7 @@ initialize_script(){
             ;;
 
         "--get-token")
-            get_new_token
+            get_new_token $2
             ;;
 
         "--show-token")
