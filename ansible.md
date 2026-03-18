@@ -48,6 +48,10 @@ ansible-playbook -vvv ./playbooks/datadog-agent.yml \
   -l 'test-jump-box.usw1.prospermedical.com' \
   --ask-vault-pass
 
+ansible-playbook -vvv ./playbooks/datadog-agent.yml \
+  -i inventory.ini \
+  -l 'test-jump-box.usw1.prospermedical.com' \
+  --ask-vault-pass
 
 # para borrar /temp/ de los workders
 ansible web -b -m shell -a "rm -rfv /tmp/*" -l 'prod-wgsn-worker0*'
