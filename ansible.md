@@ -26,12 +26,28 @@ ansible --version
 
 ___
 
+# Para usar nano en lugar de VIM
+export EDITOR=nano
+
+# Para ver el inventario
+ansible-inventory --graph
+ansible-inventory --list 
+
+# Para ver el inventario de hosts bajo un grupo especifico.
+ansible aws_ec2 --list-hosts  
+ansible aws_ec2 --list
 
 # Para correr localmente un playbook
 ansible-playbook -vvv  ./playbooks/web_build_env_local.yml  -e "jenkins_workspace=." -e "app_repo_name=wgsn-web" -l 'prod'
 
-
 ansible-playbook -v ./playbooks/build_env.yml -e "env_file=coloro-marketing-cn" -e "jenkins_workspace=/var/lib/jenkins/temp" -l "prod"
+
+ansible-playbook -vvv ./playbooks/datadog-agent.yml \
+  -i inventory.ini \
+  -e "@../secrets.yml" \
+  -l 'test-jump-box.usw1.prospermedical.com' \
+  --ask-vault-pass
+
 
 # para borrar /temp/ de los workders
 ansible web -b -m shell -a "rm -rfv /tmp/*" -l 'prod-wgsn-worker0*'
