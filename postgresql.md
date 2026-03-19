@@ -24,7 +24,7 @@ Roles can own database objects (for example, tables and functions) and can assig
 	create role [rolename] password '[password_string]';
 	```
 
-	#### Note  
+	> #### Note  
 	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database  
 	> connection.  
 	> A role with the LOGIN attribute can be considered the same as a “database user”.
