@@ -47,55 +47,69 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 # DATABASE PRIVILEGES
 
-#### Grants
+## Grants
 
-- To allow user to connect to a database:  
-`grant connect on database [database] to [username];`  
-
-- To allow a user work in a schema:  
-`grant usage on schema [schema_name] to [username];`  
-
-- To allow CRUD operations to a user:  
-`grant select, insert, update, delete on all tables in schema public to [username];`  
-
-
-- To know which tables a user doesn't have permission:  
-```[sql]
-select schemaname, tablename  
-from pg_tables  
-where schemaname not in ('pg_catalog', 'information_schema')  
-and has_table_privilege('[username]', schemaname || '.' || tablename, 'SELECT') = false;
+``` sql
+-- To allow user to connect to a database:
+grant connect on database [database] to [rolename];
 ```
 
-- To grant select on sequences:  
-`grant select on all sequences in schema public to [username];`
+``` sql
+-- To allow a user work in a schema:
+grant usage on schema [schema_name] to [rolename];  
+```
 
-- To grant default privileges to new tables (must be logged as admin user):
-```[sql]
-grant [database] to [admin_user]`;
+``` sql
+-- To allow CRUD operations to a user:
+grant select, insert, update, delete on all tables in schema public to [rolename];
+```
+
+``` sql
+-- To know which tables a user doesn't have permission:
+select
+	schemaname
+	,tablename  
+from
+	pg_tables  
+where
+	schemaname not in ('pg_catalog', 'information_schema')  
+	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'SELECT') = false
+;
+```
+
+``` sql
+-- To grant select on sequences:
+grant select on all sequences in schema public to [rolename];
+```
+
+``` sql
+-- To grant default privileges to new tables:
+-- Must be logged as administrator user
+grant [database] to [admin_user];
 
 alter default privileges in schema public for role [database]
-	grant select, insert, update, delete on tables to [username];
+	grant select, insert, update, delete on tables to [rolename];
 ```
 
 
 
 
+## Revoke
 
+``` sql
+-- To revoke connect privilege (login capabilities):
+revoke connect on database [database] from [rolename];
+```
 
+``` sql
+-- To revoke schema privilege:
+revoke usage on schema [schema_name] from [rolename];
+```
 
-
-
-#### Revoke
-
-- To revoke connect privilege (login capabilities):  
-`revoke connect on database [database] from [username];`  
-
-- To revoke schema privilege:  
-`revoke usage on schema [schema_name] from [username];`  
-
-- To revoke CRUD privilege:
-`revoke select, insert, update, delete on all tables in schema public from [username];`
+``` sql
+-- To revoke CRUD privilege:
+revoke select, insert, update, delete on all tables in schema public from [rolename];
+```
 
 
 # CUSTOM QUERIES
@@ -151,29 +165,18 @@ where
 ```
 
 ``` sql
---To see user membership:
+--To see user privileges and grants:
+select has_schema_privilege('[rolename]', '[schema]', 'USAGE');
+select has_table_privilege('[rolename]', '[schema].[table]', '[select|insert|update|delete]');
 
-``` sql
---To see user membership:
+-- or
 
-``` sql
---To see user membership:
-select has_schema_privilege('prosper_read', 'public', 'USAGE');
-select has_table_privilege('prosper_read', 'public.canvas_notes', 'UPDATE');
-
-
-
--- Como superusuario corre:
-ALTER DEFAULT PRIVILEGES FOR ROLE deploy_user IN SCHEMA public 
-GRANT SELECT ON TABLES TO analista_datos;
-
-
-
---to validate CRUD privileges and schema usage
+--to validate CRUD privileges and schema usage:
 select
-	has_schema_privilege('ryan', 'public', 'USAGE')     as schema_usage
-	,has_table_privilege('ryan', 'coupons', 'select') as grant_select
-	,has_table_privilege('ryan', 'coupons', 'update') as grant_update
-	,has_table_privilege('ryan', 'coupons', 'insert') as grant_insert
-	,has_table_privilege('ryan', 'coupons', 'delete') as grant_delete
+	has_schema_privilege('[rolename]', '[schema]', 'USAGE')          as schema_usage
+	,has_table_privilege('[rolename]', '[schema].[table]', 'select') as grant_select
+	,has_table_privilege('[rolename]', '[schema].[table]', 'update') as grant_update
+	,has_table_privilege('[rolename]', '[schema].[table]', 'insert') as grant_insert
+	,has_table_privilege('[rolename]', '[schema].[table]', 'delete') as grant_delete
 ;
+```
