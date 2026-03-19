@@ -66,14 +66,11 @@ grant select, insert, update, delete on all tables in schema public to [rolename
 
 ``` sql
 -- To know which tables a user doesn't have permission:
-select
-	schemaname
-	,tablename  
-from
-	pg_tables  
+select schemaname, tablename  
+from pg_tables  
 where
 	schemaname not in ('pg_catalog', 'information_schema')  
-	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'SELECT') = false
+	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'select') = false
 ;
 ```
 
@@ -84,7 +81,7 @@ grant select on all sequences in schema public to [rolename];
 
 ``` sql
 -- To grant default privileges to new tables:
--- Must be logged as administrator user
+-- Must be logged as administrator user and execute this two queries
 grant [database] to [admin_user];
 
 alter default privileges in schema public for role [database]
