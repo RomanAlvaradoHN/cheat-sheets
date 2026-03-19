@@ -60,13 +60,14 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 
 - To know which tables a user doesn't have permission:  
-`select schemaname, tablename  
+```[sql]
+select schemaname, tablename  
 from pg_tables  
 where schemaname not in ('pg_catalog', 'information_schema')  
 and has_table_privilege('[username]', schemaname || '.' || tablename, 'SELECT') = false;
-`
+```
 
-- To grant select on sequences:
+- To grant select on sequences:  
 `grant select on all sequences in schema public to [username];`
 
 - To grant default privileges to new tables (must be logged as admin user):
