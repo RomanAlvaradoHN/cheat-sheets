@@ -9,26 +9,26 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 ## Role Management Commands
 
-### 1. Create role:  
-	``` sql
-	create role [rolename];
-	```
-	``` sql
-	create role [rolename] LOGIN;
-	```
-	``` sql
-	-- this command includes the LOGIN privilege by default.
-	create user [rolename];
-	```
-	``` sql
-	create role [rolename] password '[password_string]';
-	```
+	### 1. Create role:  
 
-	### Note  
+		``` sql
+		create role [rolename];
+		```
+		``` sql
+		create role [rolename] LOGIN;
+		```
+		``` sql
+		-- this command includes the LOGIN privilege by default.
+		create user [rolename];
+		```
+		``` sql
+		create role [rolename] password '[password_string]';
+		```
 
-	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database  
-	> connection.  
-	> A role with the LOGIN attribute can be considered the same as a “database user”.
+		## Note  
+		> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database  
+		> connection.  
+		> A role with the LOGIN attribute can be considered the same as a “database user”.
 
 2. Remove an existing role:  
 	``` sql
