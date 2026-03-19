@@ -9,7 +9,7 @@ Roles can own database objects (for example, tables and functions) and can assig
 
 ## Role Management Commands
 
-	### 1. Create role:  
+	1. Create role:  
 
 		``` sql
 		create role [rolename];
