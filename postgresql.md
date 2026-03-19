@@ -58,6 +58,33 @@ Roles can own database objects (for example, tables and functions) and can assig
 - To allow CRUD operations to a user:  
 `grant select, insert, update, delete on all tables in schema public to [username];`  
 
+
+- To know which tables a user doesn't have permission:  
+`select schemaname, tablename  
+from pg_tables  
+where schemaname not in ('pg_catalog', 'information_schema')  
+and has_table_privilege('[username]', schemaname || '.' || tablename, 'SELECT') = false;
+`
+
+- To grant select on sequences:
+`grant select on all sequences in schema public to [username];`
+
+- To grant default privileges to new tables (must be logged as admin user):
+```[sql]
+grant [database] to [admin_user]`;
+
+alter default privileges in schema public for role [database]
+	grant select, insert, update, delete on tables to [username];
+```
+
+
+
+
+
+
+
+
+
 #### Revoke
 
 - To revoke connect privilege (login capabilities):  
@@ -133,10 +160,6 @@ where
 select has_schema_privilege('prosper_read', 'public', 'USAGE');
 select has_table_privilege('prosper_read', 'public.canvas_notes', 'UPDATE');
 
-
-export POSTGRES_USER="prosper_read"
-export RDSHOST="test-aurora-cluster.cluster-c3egqygesn6f.us-west-1.rds.amazonaws.com"
-export PGPASSWORD="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region us-west-1 --username $POSTGRES_USER )"
 
 
 -- Como superusuario corre:
