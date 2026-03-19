@@ -10,10 +10,19 @@ Roles can own database objects (for example, tables and functions) and can assig
 ## Role Management Commands
 
 1. Create role:  
-	`create role [rolename];`  
-	`create role [rolename] LOGIN;`  
-	`create user [rolename];`  this command includes the LOGIN privilege by default.  
-	`create role [rolename] password '[password_string]';`
+	``` sql
+	create role [rolename];
+	```
+	``` sql
+	create role [rolename] LOGIN;
+	```
+	``` sql
+	-- this command includes the LOGIN privilege by default.
+	create user [rolename];
+	```
+	``` sql
+	create role [rolename] password '[password_string]';
+	```
 
 	### Note  
 
@@ -22,10 +31,14 @@ Roles can own database objects (for example, tables and functions) and can assig
 	> A role with the LOGIN attribute can be considered the same as a “database user”.
 
 2. Remove an existing role:  
-	`drop role [rolename];`  
+	``` sql
+	drop role [rolename];
+	```
 
 3. To determine the set of existing roles, examine the `pg_roles` system catalog:  
-	`select * from pg_roles;`
+	``` sql
+	select * from pg_roles;
+	```
 
 2. Role Membership:  
 	It is frequently convenient to group users together to ease management of privileges: that way, privileges  
@@ -36,13 +49,19 @@ Roles can own database objects (for example, tables and functions) and can assig
 	To set up a group role:
 
 	1. Create the role:  
-		`create role [rolename];`  
+		``` sql
+		create role [rolename];
+		```
 
 		Typically a role being used as a group would not have the LOGIN attribute, though you can set it if you  wish.
 
 	2. Once the group role exists, you can add and remove members using the GRANT and REVOKE commands:  
-		`grant [group_role] to [rolename];`  
-		`revoke [group_role] from [rolename];`  
+		``` sql
+		grant [group_role] to [rolename];
+		```
+		``` sql
+		revoke [group_role] from [rolename];
+		```
 
 
 # DATABASE PRIVILEGES
