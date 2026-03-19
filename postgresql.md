@@ -24,9 +24,8 @@ Roles can own database objects (for example, tables and functions) and can assig
 	create role [rolename] password '[password_string]';
 	```
 
-	> #### Note  
-	> Only roles that have the **LOGIN** attribute can be used as the initial role name for a database  
-	> connection.  
+	> ### Note  
+	> Only roles that have the `LOGIN` attribute can be used as the initial role name for a database connection.  
 	> A role with the LOGIN attribute can be considered the same as a “database user”.
 
 2. Remove an existing role:  
@@ -39,11 +38,10 @@ Roles can own database objects (for example, tables and functions) and can assig
 	select * from pg_roles;
 	```
 
-2. Role Membership:  
-	It is frequently convenient to group users together to ease management of privileges: that way, privileges  
-	can be granted to, or revoked from, a group as a whole.  
-	PostgreSQL this is done by creating a role that represents the group, and then granting membership in the  
-	group role to individual user roles.
+4. Role Membership:  
+	It is frequently convenient to group users together to ease management of privileges.  
+	This way, privileges can be granted to, or revoked from, a group as a whole.  
+	This approach is done by creating a role that represents the group, and then granting membership in the group role to individual user roles.  
 
 	To set up a group role:
 
@@ -52,7 +50,7 @@ Roles can own database objects (for example, tables and functions) and can assig
 		create role [rolename];
 		```
 
-		Typically a role being used as a group would not have the LOGIN attribute, though you can set it if you  wish.
+		Typically a role being used as a group would not have the `LOGIN` attribute, though you can set it if you  wish.
 
 	2. Once the group role exists, you can add and remove members using the GRANT and REVOKE commands:  
 		``` sql
@@ -63,9 +61,9 @@ Roles can own database objects (for example, tables and functions) and can assig
 		```
 
 
-# DATABASE PRIVILEGES
+# GRANT AND REVOKE DATABASE PRIVILEGES
 
-## Grants
+## Grant
 
 ``` sql
 -- To allow user to connect to a database:
@@ -80,16 +78,6 @@ grant usage on schema [schema_name] to [rolename];
 ``` sql
 -- To allow CRUD operations to a user:
 grant select, insert, update, delete on all tables in schema public to [rolename];
-```
-
-``` sql
--- To know which tables a user doesn't have permission:
-select schemaname, tablename  
-from pg_tables  
-where
-	schemaname not in ('pg_catalog', 'information_schema')  
-	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'select') = false
-;
 ```
 
 ``` sql
@@ -148,6 +136,16 @@ order by
 ;
 ```
 
+``` sql
+-- To see which tables a user have grants:
+select schemaname, tablename  
+from pg_tables  
+where
+	schemaname not in ('pg_catalog', 'information_schema')  
+	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'select') = true
+;
+```
+
 
 ``` sql
 --To see user CRUD permissions on tables:
@@ -160,7 +158,7 @@ from
     information_schema.role_table_grants 
 where 
     grantee = '[rolename]' 
-    --and privilege_type = 'UPDATE'
+    and privilege_type = 'UPDATE'
 ;
 ```
 
@@ -180,7 +178,7 @@ where
 ```
 
 ``` sql
---To see user privileges and grants:
+--To see user grants:
 select has_schema_privilege('[rolename]', '[schema]', 'USAGE');
 select has_table_privilege('[rolename]', '[schema].[table]', '[select|insert|update|delete]');
 
