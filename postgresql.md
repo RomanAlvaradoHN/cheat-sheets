@@ -166,14 +166,14 @@ where
 ``` sql
 --To see user membership:
 select 
-	u.rolname  as rolename
-    ,m.rolname as group  
+    u.rolname as rolename,
+    m.rolname as group
 from
-	pg_auth_members a
-	join pg_roles   m on a.roleid = m.oid
-	join pg_roles   u on a.member = u.oid
+    pg_auth_members a
+    join pg_roles   m on a.roleid = m.oid
+    join pg_roles   u on a.member = u.oid
 where
-	u.rolname = '[rolename]';
+    u.rolname = '[rolename]';
 ;
 ```
 
