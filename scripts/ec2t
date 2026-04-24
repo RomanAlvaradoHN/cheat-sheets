@@ -7,12 +7,17 @@ CONFIG_FILE="$HOME/.prospermedical_tools_config"
 
 
 # Top-level environment variables
-declare -a GLOBAL_ENVS=(
+declare -a GLOBAL_ENVS_ARRAY=(
     "AWS_REGION"
 )
 
 # EC2 environment variables
-declare -a EC2_ENVS=()
+declare -a EC2_ENVS_ARRAY=()
+
+
+
+
+
 
 
 
@@ -20,19 +25,17 @@ declare -a EC2_ENVS=()
 # Processes
 # ===============================================
 show_correct_sintax(){
-    echo "Usage: ec2t [OPTION] [VALUE]"
+    echo "Usage: ec2t [OPTION] [ARGUMENT]"
     echo ""
     echo "Options:"
     echo "  --get-id           Get the ID of the specified EC2 instance NAME."
     echo "  --get-name         Get the NAME of the specified EC2 instance ID."
     echo "  --ssm-connect      Connect to the specified EC2 instance name via SSM."
-    echo "  --set-env          Set environment variables (KEY=VALUE pairs)."
-    echo "  --show-env         Show current environment variables."
     echo "  --reset-env        Reset all stored environment variables."
     echo ""
     echo "Arguments:"
-    echo "  VALUE              Instance name (for --get-id) or Instance ID (for --get-name)."
-    echo "  KEY=VALUE          For --set-env, specify variables (e.g., AWS_REGION=us-east-1)."
+    echo "  [Instance name]    For --get-id or --ssm-connect option."
+    echo "  [Instance id]      For --get-name option."
     echo ""
 }
 
@@ -41,8 +44,6 @@ validate_option(){
         "--get-id"
         "--get-name"
         "--ssm-connect"
-        "--set-env"
-        "--show-env"
         "--reset-env"
     )
 
@@ -58,146 +59,124 @@ validate_option(){
 }
 
 validate_argument(){
-    # No specific arguments to validate anymore
     return 0
 }
 
 
 validate_requirements(){
-    for cmd in aws; do
-        if ! command -v $cmd &> /dev/null; then
-            echo "Error: $cmd is not installed."
-            exit 1
-        fi
-    done
-}
-
-load_environments(){
-    # Set default value for AWS_REGION if not defined
-    if [ -z "$AWS_REGION" ]; then
-        export AWS_REGION="us-west-1"
+    if [[ $# -eq 0 ]]; then
+        for cmd in aws psql; do
+            if ! command -v $cmd &> /dev/null; then
+                echo "Error: $cmd is not installed."
+                exit 1
+            fi
+        done
     fi
 }
 
 
+validate_requirements(){
+    local requirements=(
+        "aws"
+    )
+
+    if [[ $# -eq 0 ]]; then
+        for cmd in "${requirements[@]}"; do
+            if ! command -v $cmd &> /dev/null; then
+                echo "Error: $cmd is not installed."
+                exit 1
+            fi
+        done
+    fi
+}
+
+load_environments(){
+    # -------------------------------------------
+    # Load existing config if file exists
+    if [ -f "$CONFIG_FILE" ]; then
+        source "$CONFIG_FILE"
+    fi
+
+    # -------------------------------------------
+    # Prompt for global environment variables
+    # Load global values from file if they exist
+    declare -gA GLOBAL
+    if [ -n "$GLOBAL_AWS_REGION" ]; then
+        GLOBAL[AWS_REGION]="$GLOBAL_AWS_REGION"
+    fi
+    # Prompt for global variables
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        current_value="${GLOBAL[$i]}"
+
+        prompt_msg="Enter value for $i"
+        if [ -n "$current_value" ]; then
+            prompt_msg="$prompt_msg [$current_value]"
+        fi
+
+        read -p "$prompt_msg: " input_value
+
+        if [ -n "$input_value" ]; then
+            GLOBAL[$i]="$input_value"
+        fi
+    done
+
+    # -------------------------------------------
+    # Save current values to the config file
+    > "$CONFIG_FILE"
+
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        echo "export GLOBAL_$i=\"${GLOBAL[$i]}\"" >> "$CONFIG_FILE"
+    done
+
+    # -------------------------------------------
+    # Set restrictive permissions
+    chmod 600 "$CONFIG_FILE"
+}
+
 
 get_id(){
     local instance_name="$1"
+    local resp
     validate_requirements
     load_environments
-    aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" --query 'Reservations[*].Instances[*].InstanceId' --output text
+    resp=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+    echo ""
+    echo $resp
+    echo ""
 }
 
 get_name(){
     local instance_id="$1"
+    local resp
     validate_requirements
     load_environments
-    aws ec2 describe-instances --instance-ids "$instance_id" --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' --output text
+    resp=$(aws ec2 describe-instances --instance-ids "$instance_id" --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' --output text)
+    echo ""
+    echo $resp
+    echo ""
 }
 
 ssm_connect(){
     local instance_name="$1"
     local instance_id
-
     validate_requirements
     load_environments
-
-    instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" --query 'Reservations[*].Instances[*].InstanceId' --output text)
     
-    if [ -z "$instance_id" ]; then
-        echo "Error: Instance '$instance_name' not found"
-        exit 1
-    fi
+    instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$instance_name" --query 'Reservations[*].Instances[*].InstanceId' --output text)
     
     aws ssm start-session --target "$instance_id"
 }
 
-set_env(){
-    local key_value="$1"
-    
-    if [[ -z "$key_value" ]]; then
-        echo "Error: Please provide KEY=VALUE pair"
-        show_correct_sintax
-        exit 1
-    fi
-
-    if [[ ! "$key_value" =~ ^([^=]+)=(.*)$ ]]; then
-        echo "Error: Invalid format. Use KEY=VALUE"
-        show_correct_sintax
-        exit 1
-    fi
-
-    local key="${BASH_REMATCH[1]}"
-    local value="${BASH_REMATCH[2]}"
-
-    # Load existing config
-    load_environments
-
-    # Set the variable
-    export "$key"="$value"
-
-    # Save to config file (append to existing variables)
-    > "$CONFIG_FILE"
-    for env in "${GLOBAL_ENVS[@]}"; do
-        if [ -n "${!env}" ]; then
-            echo "export $env=\"${!env}\"" >> "$CONFIG_FILE"
-        fi
-    done
-
-    # Save the new variable
-    if [ -n "$key" ] && [ -n "$value" ]; then
-        echo "export $key=\"$value\"" >> "$CONFIG_FILE"
-    fi
-
-    chmod 600 "$CONFIG_FILE"
-    echo "Environment variable set: $key=$value"
-}
-
-show_env(){
-    load_environments
-    echo "Current environment variables:"
-    echo ""
-    
-    for env in "${GLOBAL_ENVS[@]}"; do
-        if [ -n "${!env}" ]; then
-            echo "  $env = ${!env}"
-        fi
-    done
-
-    # Show any other exported variables from config
-    if [ -f "$CONFIG_FILE" ]; then
-        while IFS='=' read -r key value; do
-            [[ "$key" =~ ^export\ +([^=]+)$ ]] || continue
-            key="${BASH_REMATCH[1]}"
-            if [[ ! " ${GLOBAL_ENVS[@]} " =~ " $key " ]]; then
-                echo "  $key = $value"
-            fi
-        done < "$CONFIG_FILE"
-    fi
-}
-
-
 reset_environment(){
-    # Load existing config first to get all variable names
-    if [ -f "$CONFIG_FILE" ]; then
-        source "$CONFIG_FILE"
-        
-        # Get all variable names from the config file
-        while IFS='=' read -r key _; do
-            [[ "$key" =~ ^export\ +(.+)$ ]] && key="${BASH_REMATCH[1]}"
-            if [ -n "$key" ]; then
-                unset "$key" 2>/dev/null
-            fi
-        done < "$CONFIG_FILE"
-        
-        rm -f "$CONFIG_FILE"
-    fi
+    > "$CONFIG_FILE"
 
-    # Unset variables from GLOBAL_ENVS array
-    for env in "${GLOBAL_ENVS[@]}"; do
-        unset "$env" 2>/dev/null
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        unset "GLOBAL_$i"
     done
 
+    for i in "${RDS_ENVS_ARRAY[@]}"; do
+        unset "RDS_$i"
+    done
     echo "Environment variables have been reset."
 }
 
@@ -220,12 +199,6 @@ initialize_script(){
             ;;
         "--ssm-connect")
             ssm_connect $2
-            ;;
-        "--set-env")
-            set_env $2
-            ;;
-        "--show-env")
-            show_env
             ;;
         "--reset-env")
             reset_environment

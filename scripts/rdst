@@ -7,12 +7,12 @@ CONFIG_FILE="$HOME/.prospermedical_tools_config"
 
 
 # Top-level environment variables
-declare -a GLOBAL_ENVS=(
+declare -a GLOBAL_ENVS_ARRAY=(
     "AWS_REGION"
 )
 
 # RDS environment variables
-declare -a RDS_ENVS=(
+declare -a RDS_ENVS_ARRAY=(
     "CLUSTER_ENDPOINT"
     "PORT"
     "DATABASE"
@@ -79,8 +79,13 @@ validate_argument(){
 
 
 validate_requirements(){
+    local requirements=(
+        "aws"
+        "psql"
+    )
+
     if [[ $# -eq 0 ]]; then
-        for cmd in aws psql; do
+        for cmd in "${requirements[@]}"; do
             if ! command -v $cmd &> /dev/null; then
                 echo "Error: $cmd is not installed."
                 exit 1
@@ -89,25 +94,25 @@ validate_requirements(){
     fi
 }
 
-validate_environments(){
+load_environments(){
     # -------------------------------------------
-    # 1. Load existing config if file exists
+    # Load existing config if file exists
     if [ -f "$CONFIG_FILE" ]; then
         source "$CONFIG_FILE"
     fi
 
     # -------------------------------------------
-    # 2. Prompt for global environment variables
+    # Prompt for global environment variables
     # Load global values from file if they exist
     declare -gA GLOBAL
     if [ -n "$GLOBAL_AWS_REGION" ]; then
         GLOBAL[AWS_REGION]="$GLOBAL_AWS_REGION"
     fi
     # Prompt for global variables
-    for env in "${GLOBAL_ENVS[@]}"; do
-        current_value="${!env}"
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        current_value="${GLOBAL[$i]}"
 
-        prompt_msg="Enter value for $env"
+        prompt_msg="Enter value for $i"
         if [ -n "$current_value" ]; then
             prompt_msg="$prompt_msg [$current_value]"
         fi
@@ -115,12 +120,12 @@ validate_environments(){
         read -p "$prompt_msg: " input_value
 
         if [ -n "$input_value" ]; then
-            export "$env"="$input_value"
+            GLOBAL[$i]="$input_value"
         fi
     done
 
     # -------------------------------------------
-    # 3. Load RDS values from file if they exist
+    # Load RDS values from file if they exist
     # Load rds values from file if they exist
     declare -gA RDS
     if [ -n "$RDS_CLUSTER_ENDPOINT" ]; then
@@ -136,10 +141,10 @@ validate_environments(){
         RDS[USERNAME]="$RDS_USERNAME"
     fi
     # Prompt for RDS variables
-    for key in "${RDS_ENVS[@]}"; do
-        current_value="${RDS[$key]}"
+    for i in "${RDS_ENVS_ARRAY[@]}"; do
+        current_value="${RDS[$i]}"
 
-        prompt_msg="Enter value for RDS.$key"
+        prompt_msg="Enter value for $i"
         if [ -n "$current_value" ]; then
             prompt_msg="$prompt_msg [$current_value]"
         fi
@@ -147,24 +152,24 @@ validate_environments(){
         read -p "$prompt_msg: " input_value
 
         if [ -n "$input_value" ]; then
-            RDS[$key]="$input_value"
+            RDS[$i]="$input_value"
         fi
     done
 
     # -------------------------------------------
-    # 3. Save current values to the config file
+    # Save current values to the config file
     > "$CONFIG_FILE"
 
-    for env in "${GLOBAL_ENVS[@]}"; do
-        echo "export $env=\"${!env}\"" >> "$CONFIG_FILE"
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        echo "export GLOBAL_$i=\"${GLOBAL[$i]}\"" >> "$CONFIG_FILE"
     done
 
-    for key in "${RDS_ENVS[@]}"; do
-        echo "export RDS_$key=\"${RDS[$key]}\"" >> "$CONFIG_FILE"
+    for i in "${RDS_ENVS_ARRAY[@]}"; do
+        echo "export RDS_$i=\"${RDS[$i]}\"" >> "$CONFIG_FILE"
     done
 
     # -------------------------------------------
-    # 4. Set restrictive permissions
+    # Set restrictive permissions
     chmod 600 "$CONFIG_FILE"
 }
 
@@ -172,13 +177,13 @@ validate_environments(){
 
 connect_to_aurora_db(){
     validate_requirements $1
-    validate_environments
+    load_environments
     psql -h "${RDS[CLUSTER_ENDPOINT]}" -p "${RDS[PORT]}" -U "${RDS[USERNAME]}" "${RDS[DATABASE]}"
 }
 
 get_new_token(){
     validate_requirements $1
-    validate_environments
+    load_environments
     PGPASSWORD="$(aws rds generate-db-auth-token --hostname "${RDS[CLUSTER_ENDPOINT]}" --port ${RDS[PORT]} --region $AWS_REGION --username "${RDS[USERNAME]}")"
     echo ""
     echo $PGPASSWORD
@@ -192,14 +197,14 @@ show_current_token(){
 }
 
 reset_environment(){
-    rm -f "$CONFIG_FILE"
+    > "$CONFIG_FILE"
 
-    for env in "${GLOBAL_ENVS[@]}"; do
-        unset "$env"
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        unset "GLOBAL_$i"
     done
 
-    for key in "${RDS_ENVS[@]}"; do
-        unset "RDS_$key"
+    for i in "${RDS_ENVS_ARRAY[@]}"; do
+        unset "RDS_$i"
     done
     echo "Environment variables have been reset."
 }
