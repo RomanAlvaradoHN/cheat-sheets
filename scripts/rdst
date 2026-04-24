@@ -184,7 +184,7 @@ connect_to_aurora_db(){
 get_new_token(){
     validate_requirements $1
     load_environments
-    PGPASSWORD="$(aws rds generate-db-auth-token --hostname "${RDS[CLUSTER_ENDPOINT]}" --port ${RDS[PORT]} --region $AWS_REGION --username "${RDS[USERNAME]}")"
+    PGPASSWORD="$(aws rds generate-db-auth-token --hostname "${RDS[CLUSTER_ENDPOINT]}" --port ${RDS[PORT]} --region ${RDS[AWS_REGION]} --username "${RDS[USERNAME]}")"
     echo ""
     echo $PGPASSWORD
     echo ""
