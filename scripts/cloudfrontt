@@ -1,0 +1,200 @@
+#!/bin/bash
+
+# ===============================================
+# Global Configuration
+# ===============================================
+CONFIG_FILE="$HOME/.prospermedical_tools_config"
+
+
+# Top-level environment variables
+declare -a GLOBAL_ENVS_ARRAY=(
+    "AWS_REGION"
+)
+
+# RDS environment variables
+declare -a CLOUDFRONT_ENVS_ARRAY=(
+    "PUBLIC_KEY_ID"
+    "PRIVATE_KEY"
+    "DATE"
+)
+
+
+
+# ===============================================
+# Processes
+# ===============================================
+show_correct_sintax(){
+    echo "Usage: cloudfrontt [OPTION] [ARGUMENT]"
+    echo ""
+    echo "Options:"
+    echo "  --sign-url         Sign a specified url"
+    echo "  --reset-env        Reset all stored environment variables."
+    echo ""
+    echo "Arguments:"
+    echo "  [url to sign]      The url to sign. Must include the 'https://'."
+    echo ""
+}
+
+validate_option(){
+    local valid_options=(
+        "--sign-url"
+        "--reset-env"
+    )
+
+    for opt in "${valid_options[@]}"; do
+        if [[ $opt = $1 ]]; then
+            return 0
+        fi
+    done
+
+    echo "Error: Invalid option: $1"
+    show_correct_sintax
+    exit 1
+}
+
+validate_argument(){
+    return 0
+}
+
+
+validate_requirements(){
+    local requirements=(
+        "aws"
+    )
+
+    if [[ $# -eq 0 ]]; then
+        for cmd in "${requirements[@]}"; do
+            if ! command -v $cmd &> /dev/null; then
+                echo "Error: $cmd is not installed."
+                exit 1
+            fi
+        done
+    fi
+}
+
+load_environments(){
+    # -------------------------------------------
+    # Load existing config if file exists
+    if [ -f "$CONFIG_FILE" ]; then
+        source "$CONFIG_FILE"
+    fi
+
+    # -------------------------------------------
+    # Prompt for global environment variables
+    # Load global values from file if they exist
+    declare -gA GLOBAL
+    if [ -n "$GLOBAL_AWS_REGION" ]; then
+        GLOBAL[AWS_REGION]="$GLOBAL_AWS_REGION"
+    fi
+    # Prompt for global variables
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        current_value="${GLOBAL[$i]}"
+
+        prompt_msg="Enter value for $i"
+        if [ -n "$current_value" ]; then
+            prompt_msg="$prompt_msg [$current_value]"
+        fi
+
+        read -p "$prompt_msg: " input_value
+
+        if [ -n "$input_value" ]; then
+            GLOBAL[$i]="$input_value"
+        fi
+    done
+
+    # -------------------------------------------
+    # Load cloudfront values from file if they exist
+    declare -gA CLOUDFRONT
+    if [ -n "$CLOUDFRONT_PUBLIC_KEY_ID" ]; then
+        CLOUDFRONT[PUBLIC_KEY_ID]="$CLOUDFRONT_PUBLIC_KEY_ID"
+    fi
+    if [ -n "$CLOUDFRONT_PRIVATE_KEY" ]; then
+        CLOUDFRONT[PRIVATE_KEY]="$CLOUDFRONT_PRIVATE_KEY"
+    fi
+    if [ -n "$CLOUDFRONT_DATE" ]; then
+        CLOUDFRONT[DATE]="$CLOUDFRONT_DATE"
+    fi
+    # Prompt for RDS variables
+    for i in "${CLOUDFRONT_ENVS_ARRAY[@]}"; do
+        current_value="${CLOUDFRONT[$i]}"
+
+        prompt_msg="Enter value for $i"
+        if [ -n "$current_value" ]; then
+            prompt_msg="$prompt_msg [$current_value]"
+        fi
+
+        read -p "$prompt_msg: " input_value
+
+        if [ -n "$input_value" ]; then
+            CLOUDFRONT[$i]="$input_value"
+        fi
+    done
+
+    # -------------------------------------------
+    # Save current values to the config file
+    > "$CONFIG_FILE"
+
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        echo "export GLOBAL_$i=\"${GLOBAL[$i]}\"" >> "$CONFIG_FILE"
+    done
+
+    for i in "${CLOUDFRONT_ENVS_ARRAY[@]}"; do
+        echo "export CLOUDFRONT_$i=\"${CLOUDFRONT[$i]}\"" >> "$CONFIG_FILE"
+    done
+
+    # -------------------------------------------
+    # Set restrictive permissions
+    chmod 600 "$CONFIG_FILE"
+}
+
+
+
+sing_url(){
+    local url="$1"
+    local resp
+    validate_requirements $1
+    load_environments
+    resp=$(aws cloudfront sign --url "$url" --key-pair-id "${CLOUDFRONT[PUBLIC_KEY_ID]}" --private-key file://"${CLOUDFRONT[PRIVATE_KEY]}" --date-less-than "${CLOUDFRONT[DATE]}")
+    echo ""
+    echo $resp
+    echo ""
+}
+
+
+reset_environment(){
+    > "$CONFIG_FILE"
+
+    for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
+        unset "GLOBAL_$i"
+    done
+
+    for i in "${CLOUDFRONT_ENVS_ARRAY[@]}"; do
+        unset "CLOUDFRONT_$i"
+    done
+    echo "Environment variables have been reset."
+}
+
+
+
+
+# ===============================================
+# init script
+# ===============================================
+initialize_script(){
+    validate_option $1
+    validate_argument $2
+
+    case $1 in
+        "--sign-url")
+            sing_url $2
+            ;;
+
+        "--reset-env")
+            reset_environment
+            ;;
+    esac
+
+    exit 0
+}
+initialize_script $@
+
