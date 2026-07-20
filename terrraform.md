@@ -65,12 +65,33 @@ ___
 
 # TERRAFORM COMMANDS
 
-| Command            | Meaning                                                                         |
-| :------            | :------                                                                         |
-| terraform plan     | To validate what actions we are going to perform                                |
-| terraform apply    | To applicate changes                                                            |
-| terraform destroy  | To destroy a service or resource                                                |
-| terraform import   | To import as a terraform file an amazon resource                                |
-| terraform fmt      | Tries to give standart terraform format                                         |
-| terraform validate | Checks that your configuration is syntactically valid and internally consistent |
+| Command             | Meaning                                                                                  |
+| :------             | :------                                                                                  |
+| terraform plan      | To validate what actions we are going to perform                                         |
+| terraform apply     | To applicate changes                                                                     |
+| terraform destroy   | To destroy a service or resource                                                         |
+| terraform import    | To import as a terraform file an amazon resource                                         |
+| terraform fmt       | Tries to give standart terraform format                                                  |
+| terraform validate  | Checks that your configuration is syntactically valid and internally consistent          |
+| terraform taint     | Mark a resource, so in the next plan, it will be replaced                                |
+| terraform state rm  | Removes a resource from your the state file without destroying the actual infrastructure |
 
+
+
+# TERRAFORM BASH ALIASES
+
+```bash
+#Terraform aliases ===============================
+alias tf='terraform'
+alias tfplan="clear && echo 'Terraform Plan' > tfplan.txt && terraform plan | tee -a tfplan.txt"
+
+alias catplan="clear && cat tfplan.txt"
+alias catplan-ls="clear && cat tfplan.txt | grep -v 'will be read' | grep '# module.'"
+alias catplan-c="clear && cat tfplan.txt | grep '# module.' | grep 'will be created'"
+alias catplan-u="clear && cat tfplan.txt | grep '# module.' | grep 'will be updated'"
+alias catplan-d="clear && cat tfplan.txt | grep '# module.' | grep 'destroyed'"
+alias catplan-rep="clear && cat tfplan.txt | grep '# module.' | grep 'replaced'"
+alias catplan-r="clear && cat tfplan.txt | grep '# module.' | grep 'will be read'"
+
+alias tfss="clear && terraform state show"
+```
