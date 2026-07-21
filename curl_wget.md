@@ -1,12 +1,13 @@
 # Using `curl` and `wget` commands
 
----
-
 <br>
+
+---
 
 ## curl
 API calls, authentication, payload delivery (POST/PUT), inspecting HTTP headers, shell script integration.
 
+---
 
 ##### HTTP Requests & REST APIs (CRUD)
 
@@ -115,6 +116,8 @@ curl -o /dev/null -s -w "\nDNS Lookup: %{time_namelookup}s\nConnect: %{time_conn
 
 
 </br></br>
+
+---
 
 ## wget
 Large or background file downloads, automatic retries, recursive directory mirroring.
