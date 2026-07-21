@@ -7,8 +7,6 @@
 ## curl
 API calls, authentication, payload delivery (POST/PUT), inspecting HTTP headers, shell script integration.
 
----
-
 ##### HTTP Requests & REST APIs (CRUD)
 
 ```bash
@@ -121,8 +119,6 @@ curl -o /dev/null -s -w "\nDNS Lookup: %{time_namelookup}s\nConnect: %{time_conn
 
 ## wget
 Large or background file downloads, automatic retries, recursive directory mirroring.
-
----
 
 ##### Downloads & Mirroring
 
