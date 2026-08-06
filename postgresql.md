@@ -143,6 +143,7 @@ from pg_tables
 where
 	schemaname not in ('pg_catalog', 'information_schema')  
 	and has_table_privilege('[rolename]', schemaname || '.' || tablename, 'select') = true
+order by tablename
 ;
 ```
 
@@ -173,7 +174,7 @@ from
     join pg_roles   m on a.roleid = m.oid
     join pg_roles   u on a.member = u.oid
 where
-    u.rolname = '[rolename]';
+    u.rolname = '[rolename]'
 ;
 ```
 
