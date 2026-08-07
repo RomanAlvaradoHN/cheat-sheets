@@ -218,6 +218,91 @@ Go to [this link](https://www.postgresql.org/download/) to see official informat
 	```
 
 
+## EXPORT SOURCE DATA
+
+``` bash
+pg_dump -h <hostname> -p 5432 -U <username> -Fc -b -v -f <dumpfilelocation.sql> -d  <database_name>
+```
+Where:  
+
+|parameter|description                                                                     |
+| :-      | :-                                                                             |
+|**-h**   | is the name of source server where you would like to migrate your database.    |
+|**-U**   | is the name of the user present on the source server.                          |
+|**-Fc**  | Sets the output as a custom-format archive suitable for input into pg_restore. |
+|**-b**   | Include large objects in the dump.                                             |
+|**-v**   | Specifies verbose mode.                                                        |
+|**-f**   | Dump file path.                                                                |
 
 
-;
+## CREATE TARGET DATABASE  
+
+``` bash
+#First, login to your target database server.
+psql -h <hostname> -p 5432 -U <username> -d <database_name>
+```
+
+Where:  
+
+|parameter|description                                                                     |
+| :-      | :-                                                                             |
+|**-h**   | is the name of target server where you would like to migrate your database.    |
+|**-U**   | is the name of the user present on the target server.                          |
+|**-d**   | is the name of database name present on target already.                        |  
+
+``` bash
+#Then, use the following command to create a database.
+create database migrated_database;
+```
+
+
+
+## IMPORT DUMP FILES  
+
+``` bash
+pg_restore -v -h <hostname> -U <username> -d <database_name> -j 2 <dumpfilelocation.sql>
+```
+
+Where:  
+
+|parameter                  |description                                                                              |
+| :-                        | :-                                                                                      |
+|**-h**                     | is the name of target server where you would like to migrate your database.             |
+|**-U**                     | is the name of the user present on the target server.                                   |
+|**-d**                     | is the name of database name present on target already.                                 |
+|**<dumpfilelocation.sql>** | is the dump file that was created to generate the script of the database using pg_dump. |
+
+
+
+## MIGRATE DATABASE ROLES AND USERS  
+
+### EXPORT  
+
+``` bash
+pg_dumpall -U <username> -h <hostname>  -f <dumpfilelocation.sql> --no-role-passwords -g
+```  
+where:  
+
+|parameter | description                                                                 |
+|:-        |:-                                                                           |
+|-h        | is the name of source server where you would like to migrate your database. |
+|-U        | is the name of the user present on the source server.                       |
+|-f        | Dump file path.                                                             |
+|-g        | Dump only global objects (roles and tablespaces), no databases.             |
+
+
+### IMPORT  
+
+``` bash
+psql -h <hostname> -U <username> -f <dumpfilelocation.sql>
+```  
+
+where:  
+
+|parameter | description                                                                 |
+|:-        |:-                                                                           |
+|-h        | is the name of target server where you would like to migrate your database. |
+|-U        | is the name of the user present on the target server.                       |
+|-f        | Dump file path.                                                             |
+
+
