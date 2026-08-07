@@ -205,15 +205,17 @@ Before execute this commands, ensure you have installed the required cli tools:
 
 Go to [this link](https://www.postgresql.org/download/) to see official information for your operating system.
 
-``` bash
-#1. install cli tools (ubuntu):
-sudo apt install -y postgresql-common
-sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+1. install cli tools (ubuntu):
+	``` bash
+	sudo apt install -y postgresql-common
+	sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+	```
 
-#2. install the utilities
-sudo apt update
-sudo apt install postgresql-client
-```
+2. install the utilities
+	``` bash
+	sudo apt update
+	sudo apt install postgresql-client
+	```
 
 
 
