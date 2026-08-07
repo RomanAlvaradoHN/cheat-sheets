@@ -194,3 +194,28 @@ select
 	,has_table_privilege('[rolename]', '[schema].[table]', 'delete') as grant_delete
 ;
 ```
+
+
+# DATABASE MIGRATION
+
+Before execute this commands, ensure you have installed the required cli tools:  
+- psql
+- pg_dump
+- pg_dupmall
+
+Go to [this link](https://www.postgresql.org/download/) to see official information for your operating system.
+
+``` bash
+#1. install cli tools (ubuntu):
+sudo apt install -y postgresql-common
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+
+#2. install the utilities
+sudo apt update
+sudo apt install postgresql-client
+```
+
+
+
+
+;
