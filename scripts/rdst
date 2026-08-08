@@ -13,7 +13,7 @@ declare -a GLOBAL_ENVS_ARRAY=(
 
 # RDS environment variables
 declare -a RDS_ENVS_ARRAY=(
-    "CLUSTER_ENDPOINT"
+    "ENDPOINT"
     "PORT"
     "DATABASE"
     "USERNAME"
@@ -128,8 +128,8 @@ load_environments(){
     # Load RDS values from file if they exist
     # Load rds values from file if they exist
     declare -gA RDS
-    if [ -n "$RDS_CLUSTER_ENDPOINT" ]; then
-        RDS[CLUSTER_ENDPOINT]="$RDS_CLUSTER_ENDPOINT"
+    if [ -n "$RDS_ENDPOINT" ]; then
+        RDS[ENDPOINT]="$RDS_ENDPOINT"
     fi
     if [ -n "$RDS_PORT" ]; then
         RDS[PORT]="$RDS_PORT"
@@ -178,14 +178,14 @@ load_environments(){
 connect_to_aurora_db(){
     validate_requirements $1
     load_environments
-    psql -h "${RDS[CLUSTER_ENDPOINT]}" -p "${RDS[PORT]}" -U "${RDS[USERNAME]}" "${RDS[DATABASE]}"
+    psql -h "${RDS[ENDPOINT]}" -p "${RDS[PORT]}" -U "${RDS[USERNAME]}" "${RDS[DATABASE]}"
 }
 
 get_new_token(){
     local resp
     validate_requirements $1
     load_environments
-    resp="$(aws rds generate-db-auth-token --hostname ${RDS[CLUSTER_ENDPOINT]} --port ${RDS[PORT]} --region ${GLOBAL[AWS_REGION]} --username ${RDS[USERNAME]})"
+    resp="$(aws rds generate-db-auth-token --hostname ${RDS[ENDPOINT]} --port ${RDS[PORT]} --region ${GLOBAL[AWS_REGION]} --username ${RDS[USERNAME]})"
     echo ""
     echo $resp
     echo ""
