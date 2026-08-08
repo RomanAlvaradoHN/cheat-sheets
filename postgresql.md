@@ -225,14 +225,14 @@ pg_dump -h <hostname> -p 5432 -U <username> -Fc -b -v -f <dumpfilelocation.sql> 
 ```
 Where:  
 
-|parameter|description                                                                     |
-| :-      | :-                                                                             |
-|**-h**   | is the name of source server where you would like to migrate your database.    |
-|**-U**   | is the name of the user present on the source server.                          |
-|**-Fc**  | Sets the output as a custom-format archive suitable for input into pg_restore. |
-|**-b**   | Include large objects in the dump.                                             |
-|**-v**   | Specifies verbose mode.                                                        |
-|**-f**   | Dump file path.                                                                |
+|parameter|description                                                                 |
+| :-  | :-                                                                             |
+|-h   | is the name of source server where you would like to migrate your database.    |
+|-U   | is the name of the user present on the source server.                          |
+|-Fc  | Sets the output as a custom-format archive suitable for input into pg_restore. |
+|-b   | Include large objects in the dump.                                             |
+|-v   | Specifies verbose mode.                                                        |
+|-f   | Dump file path.                                                                |
 
 
 ## CREATE TARGET DATABASE  
@@ -244,11 +244,11 @@ psql -h <hostname> -p 5432 -U <username> -d <database_name>
 
 Where:  
 
-|parameter|description                                                                     |
-| :-      | :-                                                                             |
-|**-h**   | is the name of target server where you would like to migrate your database.    |
-|**-U**   | is the name of the user present on the target server.                          |
-|**-d**   | is the name of database name present on target already.                        |  
+|parameter|description                                                                 |
+| :-  | :-                                                                             |
+|-h   | is the name of target server where you would like to migrate your database.    |
+|-U   | is the name of the user present on the target server.                          |
+|-d   | is the name of database name present on target already.                        |  
 
 ``` bash
 #Then, use the following command to create a database.
@@ -265,12 +265,12 @@ pg_restore -v -h <hostname> -U <username> -d <database_name> -j 2 <dumpfilelocat
 
 Where:  
 
-|parameter                  |description                                                                              |
-| :-                        | :-                                                                                      |
-|**-h**                     | is the name of target server where you would like to migrate your database.             |
-|**-U**                     | is the name of the user present on the target server.                                   |
-|**-d**                     | is the name of database name present on target already.                                 |
-|**<dumpfilelocation.sql>** | is the dump file that was created to generate the script of the database using pg_dump. |
+|parameter              |description                                                                              |
+| :-                    | :-                                                                                      |
+|-h                     | is the name of target server where you would like to migrate your database.             |
+|-U                     | is the name of the user present on the target server.                                   |
+|-d                     | is the name of database name present on target already.                                 |
+|<dumpfilelocation.sql> | is the dump file that was created to generate the script of the database using pg_dump. |
 
 
 
@@ -294,7 +294,7 @@ where:
 ### IMPORT  
 
 ``` bash
-psql -h <hostname> -U <username> -f <dumpfilelocation.sql>
+psql -h <hostname> -U <username> -d <database_name> -f <dumpfilelocation.sql>
 ```  
 
 where:  
@@ -303,6 +303,7 @@ where:
 |:-        |:-                                                                           |
 |-h        | is the name of target server where you would like to migrate your database. |
 |-U        | is the name of the user present on the target server.                       |
+|-d        | is the name of database name present on target already.                     |
 |-f        | Dump file path.                                                             |
 
 
