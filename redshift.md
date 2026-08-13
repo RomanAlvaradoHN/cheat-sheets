@@ -1,6 +1,6 @@
 # REDSHIFT COMMANDS
 
-#### CREATE:  
+## CREATE:  
 
 * [DATABASE](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html)  
 
@@ -63,7 +63,7 @@
     [ EXTERNALID external_id ]
 	```
 
-#### GRANT PRIVILEGES:  
+## GRANT PRIVILEGES:  
 
 Go to [this link](https://docs.aws.amazon.com/redshift/latest/dg/r_GRANT.html) to see official information.
 
@@ -121,7 +121,7 @@ Go to [this link](https://docs.aws.amazon.com/redshift/latest/dg/r_GRANT.html) t
     TO { username [ WITH GRANT OPTION ] | ROLE role_name | GROUP group_name | PUBLIC } [, ...]
     ```
 
-#### DEFAULT PRIVILEGES:  
+## DEFAULT PRIVILEGES:  
 
 Go to [this link](https://docs.aws.amazon.com/redshift/latest/dg/r_ALTER_DEFAULT_PRIVILEGES.html) to see official information.
 
@@ -177,7 +177,7 @@ ALTER USER [username] SET SEARCH_PATH TO [schemaname] [,...];
 ```
 
 
-#### PRIVILEGES AUDIT:  
+## PRIVILEGES AUDIT:  
 
 * TO SEE USERS
     ``` sql

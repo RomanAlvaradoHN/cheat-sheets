@@ -6,6 +6,7 @@
 Go to [this link](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html) to see the most recent information.
 
 1. Ensure `pip` is available:  
+
 ```bash
 python3 -m pip -V
 ```
@@ -19,6 +20,7 @@ python3 -m pip -V
 | `python3 -m pip install --user ansible-core==2.12.3` | Install a specific version of ansible-core                    |
 
 3. Verify Installation:  
+
 ```bash
 ansible --version
 ```
@@ -26,18 +28,18 @@ ansible --version
 
 ___
 
-# Para usar nano en lugar de VIM
+## Use nano editor instead vim
 export EDITOR=nano
 
-# Para ver el inventario
+## To see ansible inventory
 ansible-inventory --graph
 ansible-inventory --list 
 
-# Para ver el inventario de hosts bajo un grupo especifico.
+## To see ansible inventory in a specific group
 ansible aws_ec2 --list-hosts  
 ansible aws_ec2 --list
 
-# Para correr localmente un playbook
+## To run a playbook locally
 ansible-playbook -vvv  ./playbooks/web_build_env_local.yml  -e "jenkins_workspace=." -e "app_repo_name=wgsn-web" -l 'prod'
 
 ansible-playbook -v ./playbooks/build_env.yml -e "env_file=coloro-marketing-cn" -e "jenkins_workspace=/var/lib/jenkins/temp" -l "prod"
