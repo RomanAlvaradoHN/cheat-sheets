@@ -186,13 +186,20 @@ select has_table_privilege('[rolename]', '[schema].[table]', '[select|insert|upd
 -- or
 
 --to validate CRUD privileges and schema usage:
-select
-	has_schema_privilege('[rolename]', '[schema]', 'USAGE')          as schema_usage
-	,has_table_privilege('[rolename]', '[schema].[table]', 'select') as grant_select
-	,has_table_privilege('[rolename]', '[schema].[table]', 'update') as grant_update
-	,has_table_privilege('[rolename]', '[schema].[table]', 'insert') as grant_insert
-	,has_table_privilege('[rolename]', '[schema].[table]', 'delete') as grant_delete
-;
+WITH target_user AS (
+    SELECT 'prism' AS username
+)
+SELECT
+    t.schemaname,
+    t.tablename,
+    has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'select') AS "select",
+    has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'insert') AS "insert",
+    has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'update') AS "update",
+    has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'delete') AS "delete"
+FROM pg_tables t
+CROSS JOIN target_user u
+WHERE t.schemaname NOT IN ('pg_catalog', 'information_schema')
+ORDER BY t.schemaname, t.tablename;
 ```
 
 
