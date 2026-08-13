@@ -186,8 +186,9 @@ select has_table_privilege('[rolename]', '[schema].[table]', '[select|insert|upd
 -- or
 
 --to validate CRUD privileges and schema usage:
+--(EXECUTE THIS QUERY PER EACH DATABASE)
 WITH target_user AS (
-    SELECT 'prism' AS username
+    SELECT 'prism2' AS username
 )
 SELECT
     t.schemaname,
@@ -196,10 +197,14 @@ SELECT
     has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'insert') AS "insert",
     has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'update') AS "update",
     has_table_privilege(u.username, t.schemaname || '.' || t.tablename, 'delete') AS "delete"
-FROM pg_tables t
-CROSS JOIN target_user u
-WHERE t.schemaname NOT IN ('pg_catalog', 'information_schema')
-ORDER BY t.schemaname, t.tablename;
+from
+	pg_tables t
+	CROSS JOIN target_user u
+where
+	t.schemaname NOT IN ('pg_catalog', 'information_schema')
+	AND has_schema_privilege(u.username, t.schemaname, 'usage')
+ORDER BY t.schemaname, t.tablename
+;
 ```
 
 
