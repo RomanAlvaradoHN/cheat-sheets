@@ -230,3 +230,22 @@ ALTER USER [username] SET SEARCH_PATH TO [schemaname] [,...];
     from pg_namespace, pg_user
     where pg_namespace.nspowner = pg_user.usesysid
     ```
+
+
+
+
+## ZERO-ETL INTEGRATIONS:
+    ``` sql
+    --See available integrations information
+    SELECT * FROM SVV_INTEGRATION;
+    ```  
+
+    ``` sql
+    --Create destination database (RDS)
+    CREATE DATABASE destination_db_name FROM INTEGRATION 'integration_id';
+    ```
+
+    ``` sql
+    --Create destination database (AURORA)
+    CREATE DATABASE "destination_db_name" FROM INTEGRATION 'integration_id' DATABASE "named_db";
+    ```
