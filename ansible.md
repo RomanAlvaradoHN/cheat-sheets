@@ -43,8 +43,16 @@ ansible-inventory --list
 ```
 
 ## To see ansible inventory in a specific group
+
+```bash
 ansible aws_ec2 --list-hosts  
+```
+
+
+```bash
 ansible aws_ec2 --list
+```
+
 
 ## To run a playbook locally
 ansible-playbook -vvv  ./playbooks/web_build_env_local.yml  -e "jenkins_workspace=." -e "app_repo_name=wgsn-web" -l 'prod'
