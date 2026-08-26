@@ -29,11 +29,18 @@ ansible --version
 ___
 
 ## Use nano editor instead vim
+```bash
 export EDITOR=nano
+```  
 
 ## To see ansible inventory
+```bash
 ansible-inventory --graph
+```
+
+```bash
 ansible-inventory --list 
+```
 
 ## To see ansible inventory in a specific group
 ansible aws_ec2 --list-hosts  
