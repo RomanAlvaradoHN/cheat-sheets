@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # ===============================================
-# Global Configuration
+# global configuration
 # ===============================================
 CONFIG_FILE="$HOME/.prospermedical_tools_config"
 
 
-# Top-level environment variables
+# top-level environment variables
 declare -a GLOBAL_ENVS_ARRAY=(
     "AWS_REGION"
 )
@@ -22,7 +22,7 @@ declare -a RDS_ENVS_ARRAY=(
 
 
 # ===============================================
-# Processes
+# processes
 # ===============================================
 show_correct_sintax(){
     echo "Usage: rdst [OPTION] [ARGUMENT]"
@@ -125,8 +125,7 @@ load_environments(){
     done
 
     # -------------------------------------------
-    # Load RDS values from file if they exist
-    # Load rds values from file if they exist
+    # load RDS values from file if they exist
     declare -gA RDS
     if [ -n "$RDS_ENDPOINT" ]; then
         RDS[ENDPOINT]="$RDS_ENDPOINT"
@@ -140,7 +139,7 @@ load_environments(){
     if [ -n "$RDS_USERNAME" ]; then
         RDS[USERNAME]="$RDS_USERNAME"
     fi
-    # Prompt for RDS variables
+    # prompt for RDS variables
     for i in "${RDS_ENVS_ARRAY[@]}"; do
         current_value="${RDS[$i]}"
 
@@ -157,7 +156,7 @@ load_environments(){
     done
 
     # -------------------------------------------
-    # Save current values to the config file
+    # save current values to the config file
     > "$CONFIG_FILE"
 
     for i in "${GLOBAL_ENVS_ARRAY[@]}"; do
@@ -169,7 +168,7 @@ load_environments(){
     done
 
     # -------------------------------------------
-    # Set restrictive permissions
+    # set restrictive permissions
     chmod 600 "$CONFIG_FILE"
 }
 
@@ -186,6 +185,8 @@ get_new_token(){
     validate_requirements $1
     load_environments
     resp="$(aws rds generate-db-auth-token --hostname ${RDS[ENDPOINT]} --port ${RDS[PORT]} --region ${GLOBAL[AWS_REGION]} --username ${RDS[USERNAME]})"
+    PGPASSWORD_TOKEN="$resp"
+    export PGPASSWORD_TOKEN
     echo ""
     echo $resp
     echo ""
@@ -193,7 +194,7 @@ get_new_token(){
 
 show_current_token(){
     echo "Current authentication token:"
-    echo $PGPASSWORD
+    echo $PGPASSWORD_TOKEN
     echo ""
 }
 
