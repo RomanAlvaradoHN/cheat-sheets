@@ -1,16 +1,28 @@
 # LINUX USERS AND GROUPS MANAGEMENT  
 
-## CREATE  
+## CREATE USER  
 
 ```bash
 #create user only
-useradd [username]
-```
+sudo useradd [username]
+```  
 
 ```bash
 #create user and home directory
-useradd -m [username]
-```
+sudo useradd -m [username]
+```  
+
+## DELETE USER  
+
+```bash
+#delete user only
+sudo userdel [username]
+```  
+
+```bash
+#delete user and home directory
+sudo userdel -r [username]
+```  
 
 
 
