@@ -2,8 +2,6 @@
 
 ## USERS
 
-
-
 ### CREATE USER  
 
 ```bash
@@ -26,7 +24,6 @@ sudo useradd -s /bin/bash -m [username]
 sudo passwd [username]
 ```  
 
-
 ### DELETE USER  
 
 ```bash
@@ -39,8 +36,20 @@ sudo userdel [username]
 sudo userdel -r [username]
 ```  
 
+### VIEW EXISTING USERS  
 
-### VIEW EXISTING USERS
+The `/etc/passwd` file contains the users information (separated by `:`).  
+
+part1:part2:part3:part4:part5:part6:part7
+
+- part1: Login name.
+- part2: Password identification, x indicates that the user has password, the encrypted password is stored in the second field of `/etc/shadow`.
+- part3: UID (User's ID).
+- part4: GID (User's primary group ID).
+- part5: Comments.
+- part6: Home directory.
+- part7: Shell.
+
 
 ```bash
 # full data
@@ -51,6 +60,7 @@ cat /etc/passwd
 # only usernames
 cat /etc/passwd | cut -d: -f1
 ```  
+
 
 
 ## GROUPS  
@@ -72,7 +82,6 @@ groupadd [groupname]
 ```bash
 groupdel [groupname]
 ```  
-
 
 ### VIEW EXISTING GROUPS  
 
