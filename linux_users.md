@@ -5,6 +5,11 @@
 ### CREATE USER  
 
 ```bash
+#create user, home directory and comment
+sudo useradd -s /bin/bash -m -c "[comment]" [username]
+```  
+
+```bash
 #create user only
 sudo useradd -s /bin/bash [username]
 ```  
@@ -12,11 +17,6 @@ sudo useradd -s /bin/bash [username]
 ```bash
 #create user and home directory (-m)
 sudo useradd -s /bin/bash -m [username]
-```  
-
-```bash
-#create user with comment
-sudo useradd -s /bin/bash -m -c "[comment]" [username]
 ```  
 
 ```bash
