@@ -76,7 +76,14 @@ groupdel [groupname]
 
 ### VIEW EXISTING GROUPS  
 
-`/etc/group` file contains the groups information.
+The `/etc/group` file contains the groups information (separated by `:`).  
+
+part1:part2:part3:part4  
+
+- part1: Name of the group.
+- part2: The group password (identified by x). The group password is stored in `/etc/gshadow`.
+- part3: GID (Group ID)
+- part4: Supplementary users in the group. (excluding the unique primary user).
 
 
 ```bash
