@@ -24,17 +24,6 @@ sudo useradd -s /bin/bash -m -c "[comment]" [username]
 sudo passwd [username]
 ```  
 
-```bash
-# full command
-username="testuser"
-comment="comment test user"
-ssh_key="helloworld"
-sudo useradd -s /bin/bash -m -c $comment $username
-sudo mkdir /home/$username/.ssh
-sudo echo $ssh_key > /home/$username/.ssh/authorized_keys
-sudo chown -R $username:$username /home/$username
-```  
-
 
 ### DELETE USER  
 
