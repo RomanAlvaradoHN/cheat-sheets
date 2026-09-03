@@ -76,6 +76,9 @@ groupdel [groupname]
 
 ### VIEW EXISTING GROUPS  
 
+'/etc/group' file contains the groups information.
+
+
 ```bash
 # full info
 cat /etc/group
