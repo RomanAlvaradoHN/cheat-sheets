@@ -1,6 +1,8 @@
 # LINUX USERS AND GROUPS MANAGEMENT  
 
-## CREATE USER  
+## USERS
+
+### CREATE USER  
 
 ```bash
 #create user only
@@ -12,7 +14,13 @@ sudo useradd [username]
 sudo useradd -m [username]
 ```  
 
-## DELETE USER  
+```bash
+#set user password
+sudo passwd [username]
+```  
+
+
+### DELETE USER  
 
 ```bash
 #delete user only
@@ -24,6 +32,18 @@ sudo userdel [username]
 sudo userdel -r [username]
 ```  
 
+
+### VIEW EXISTING USERS
+
+```bash
+# full data
+cat /etc/passwd
+```  
+
+```bash
+# only usernames
+cat /etc/passwd | cut -d: -f1
+```  
 
 
 # FREE WEB VM  
