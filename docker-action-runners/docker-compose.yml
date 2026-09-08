@@ -1,0 +1,19 @@
+services:
+  runner:
+    build: .
+    restart: always
+    environment:
+      - ORGANIZATION=[organization_name]
+      - TOKEN=[token_string]
+      - RUNNER_NAME=[runner_name]
+      - LABELS=[labels]
+    deploy:
+      mode: replicated
+      replicas: 3
+      resources:
+        limits:
+          cpus: '4'
+          memory: 10gb
+        reservations:
+          cpus: '0.5'
+          memory: 1gb
