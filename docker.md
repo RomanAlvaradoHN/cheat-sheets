@@ -64,3 +64,5 @@ Go to [this link](https://docs.docker.com/engine/install/) to see the most recen
 | `docker pause <container_id_or_name`          | The command meaning    |
 | `docker unpause <container_id_or_name`        | The command meaning    |
 | `docker system prune -af --volumes`           | The command meaning    |
+| `docker compose build`                        | The command meaning    |
+| `docker compose up -d`                        | The command meaning    |
