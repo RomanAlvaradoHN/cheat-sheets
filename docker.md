@@ -60,6 +60,8 @@ Go to [this link](https://docs.docker.com/engine/install/) to see the most recen
 | Command                                       | Meaning                |
 | :------                                       | :------                |
 | `docker ps`                                   | The command meaning    |
+| `docker stop <container_id_or_name>`          | The command meaning    |
+| `docker rm <container_id_or_name>`            | The command meaning    |
 | `docker exec -it <container_id_or_name> bash` | The command meaning    |
 | `docker pause <container_id_or_name`          | The command meaning    |
 | `docker unpause <container_id_or_name`        | The command meaning    |
