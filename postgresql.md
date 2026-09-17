@@ -88,9 +88,10 @@ grant select on all sequences in schema public to [rolename];
 ``` sql
 -- To grant default privileges to new tables:
 -- Must be logged as administrator user and execute this two queries
+-- Also, you can take a look of pg_read_all_data, pg_write_all_data predefined roles.
 grant [database] to [admin_user];
 
-alter default privileges in schema public for role [database]
+alter default privileges in schema public for role [owner role]
 	grant select, insert, update, delete on tables to [rolename];
 ```
 
