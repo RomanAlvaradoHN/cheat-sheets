@@ -33,9 +33,14 @@ Roles can own database objects (for example, tables and functions) and can assig
 	drop role [rolename];
 	```
 
-3. To determine the set of existing roles, examine the `pg_roles` system catalog:  
+3. Consult existing roles/users:
 	``` sql
 	select * from pg_roles;
+	```
+
+	``` sql
+	--this command, shows roles with LOGIN only
+	select * from pg_users;
 	```
 
 4. Role Membership:  
