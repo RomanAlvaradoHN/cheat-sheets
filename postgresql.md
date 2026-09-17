@@ -66,7 +66,9 @@ Roles can own database objects (for example, tables and functions) and can assig
 		```
 
 
-# GRANT AND REVOKE DATABASE PRIVILEGES
+# GRANT AND REVOKE DATABASE PRIVILEGES  
+
+Go to [this link](https://www.postgresql.org/docs/18/sql-alterdefaultprivileges.html) to see official information.
 
 ## Grant
 
@@ -90,15 +92,20 @@ grant select, insert, update, delete on all tables in schema public to [rolename
 grant select on all sequences in schema public to [rolename];
 ```
 
-``` sql
--- To grant default privileges to new tables:
--- Must be logged as administrator user and execute this two queries
--- Also, you can take a look of pg_read_all_data, pg_write_all_data predefined roles.
-grant [database] to [admin_user];
+#### Grant default privileges  
 
-alter default privileges in schema public for role [owner role]
-	grant select, insert, update, delete on tables to [rolename];
-```
+You can also take a look of `pg_read_all_data`, `pg_write_all_data` predefined roles.
+
+``` sql
+alter default privileges in schema public  
+grant select, insert, update, delete on tables to [rolename];
+```  
+
+``` sql
+alter default privileges for role [owner-role] in schema public  
+grant select, insert, update, delete on tables to [rolename];
+```  
+
 
 
 
