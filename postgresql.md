@@ -106,6 +106,16 @@ alter default privileges for role [owner-role] in schema public
 grant select, insert, update, delete on tables to [rolename];
 ```  
 
+#### Enable IAM authentication  
+
+Go to [this link](https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.DBAccounts.html) to see official information about the **user grant**.
+
+Go to [this link](https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.IAMPolicy.html) to see official information about the **IAM policy**.
+
+``` sql
+GRANT rds_iam TO db_userx;
+```  
+
 
 
 
