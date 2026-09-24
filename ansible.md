@@ -55,6 +55,9 @@ ansible aws_ec2 --list
 
 
 ## To run a playbook locally
+
+ansible-playbook -i inventory/aws_ec2.yml playbooks/docker-install.yml --limit prod-rxnav-instance.usw1.prospermedical.com --check --diff
+
 ansible-playbook -vvv  ./playbooks/web_build_env_local.yml  -e "jenkins_workspace=." -e "app_repo_name=wgsn-web" -l 'prod'
 
 ansible-playbook -v ./playbooks/build_env.yml -e "env_file=coloro-marketing-cn" -e "jenkins_workspace=/var/lib/jenkins/temp" -l "prod"
