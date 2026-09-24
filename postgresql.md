@@ -94,7 +94,7 @@ grant select on all sequences in schema public to [rolename];
 
 #### Grant default privileges  
 
-You can also take a look of `pg_read_all_data`, `pg_write_all_data` predefined roles.
+[You can also take a look of `pg_read_all_data`, `pg_write_all_data` predefined roles.](https://www.postgresql.org/docs/current/predefined-roles.html)
 
 ``` sql
 alter default privileges in schema public  
