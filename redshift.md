@@ -2,66 +2,84 @@
 
 ## CREATE:  
 
-* [DATABASE](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html)  
+### Database
 
-    ``` sql
-    CREATE DATABASE database_name 
-    [
-        {
-            [ 
-                FROM INTEGRATION '<integration_id>'[ DATABASE '<source_database>' ]
-                [ SET ]
-                [ ACCEPTINVCHARS [=] { TRUE | FALSE }]
-                [ QUERY_ALL_STATES [=] { TRUE | FALSE }] 
-                [ REFRESH_INTERVAL <interval> ] 
-                [ TRUNCATECOLUMNS [=] { TRUE | FALSE } ]
-                [ HISTORY_MODE [=] {TRUE | FALSE} ]
-            ]
-            [ WITH ]
-            [ OWNER [=] db_owner ]
-            [ CONNECTION LIMIT { limit | UNLIMITED } ]
-            [ COLLATE { CASE_SENSITIVE | CS | CASE_INSENSITIVE | CI } ]
-            [ ISOLATION LEVEL { SNAPSHOT | SERIALIZABLE } ]
-        }
-        | { FROM { { ARN '<arn>' } { WITH DATA CATALOG SCHEMA '<schema>' | WITH NO DATA CATALOG SCHEMA } } }
-        | { IAM_ROLE  {default | 'SESSION' | 'arn:aws:iam::<account-id>:role/<role-name>' } }
-        | { [ WITH PERMISSIONS ] FROM DATASHARE datashare_name OF [ ACCOUNT account_id ] NAMESPACE namespace_guid }
-    ]
-    ```
+[Web Info](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html)
 
-* [SCHEMA](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_SCHEMA.html)
-	``` sql
-    CREATE SCHEMA [ IF NOT EXISTS ] schema_name [ AUTHORIZATION username ]
-	```
+``` sql
+CREATE DATABASE database_name 
+[
+    {
+        [ 
+            FROM INTEGRATION '<integration_id>'[ DATABASE '<source_database>' ]
+            [ SET ]
+            [ ACCEPTINVCHARS [=] { TRUE | FALSE }]
+            [ QUERY_ALL_STATES [=] { TRUE | FALSE }] 
+            [ REFRESH_INTERVAL <interval> ] 
+            [ TRUNCATECOLUMNS [=] { TRUE | FALSE } ]
+            [ HISTORY_MODE [=] {TRUE | FALSE} ]
+        ]
+        [ WITH ]
+        [ OWNER [=] db_owner ]
+        [ CONNECTION LIMIT { limit | UNLIMITED } ]
+        [ COLLATE { CASE_SENSITIVE | CS | CASE_INSENSITIVE | CI } ]
+        [ ISOLATION LEVEL { SNAPSHOT | SERIALIZABLE } ]
+    }
+    | { FROM { { ARN '<arn>' } { WITH DATA CATALOG SCHEMA '<schema>' | WITH NO DATA CATALOG SCHEMA } } }
+    | { IAM_ROLE  {default | 'SESSION' | 'arn:aws:iam::<account-id>:role/<role-name>' } }
+    | { [ WITH PERMISSIONS ] FROM DATASHARE datashare_name OF [ ACCOUNT account_id ] NAMESPACE namespace_guid }
+]
+```
 
-* [USER](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_USER.html)
-	``` sql
-    CREATE USER name [ WITH ]
-    PASSWORD { 'password' | 'md5hash' | 'sha256hash' | DISABLE }
-    [ option [ ... ] ]
+### Schema
 
-    where option can be:
+[Web Info](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_SCHEMA.html)
 
-    CREATEDB | NOCREATEDB
-    | CREATEUSER | NOCREATEUSER
-    | SYSLOG ACCESS { RESTRICTED | UNRESTRICTED }
-    | IN GROUP groupname [, ... ]
-    | VALID UNTIL 'abstime'
-    | CONNECTION LIMIT { limit | UNLIMITED }
-    | SESSION TIMEOUT limit
-    | EXTERNALID external_id
-	```
+``` sql
+CREATE SCHEMA [ IF NOT EXISTS ] schema_name [ AUTHORIZATION username ]
+```
 
-    ``` sql
-    --Create IAM user/role (for IAM authentication)
-	CREATE USER "IAM:[IAM_user_or_role]" PASSWORD DISABLE;
-	```
 
-* [ROLE](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_ROLE.html)
-	``` sql
-    CREATE ROLE role_name
-    [ EXTERNALID external_id ]
-	```
+
+### User
+
+[Web Info](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_USER.html)  
+
+``` sql
+CREATE USER name [ WITH ]
+PASSWORD { 'password' | 'md5hash' | 'sha256hash' | DISABLE }
+[ option [ ... ] ]
+
+where option can be:
+
+CREATEDB | NOCREATEDB
+| CREATEUSER | NOCREATEUSER
+| SYSLOG ACCESS { RESTRICTED | UNRESTRICTED }
+| IN GROUP groupname [, ... ]
+| VALID UNTIL 'abstime'
+| CONNECTION LIMIT { limit | UNLIMITED }
+| SESSION TIMEOUT limit
+| EXTERNALID external_id
+```
+
+``` sql
+--Create IAM user/role (for IAM authentication)
+CREATE USER "IAM:[IAM_user_or_role]" PASSWORD DISABLE;
+```
+
+### Role
+
+[Web Info](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_ROLE.html)  
+
+``` sql
+CREATE ROLE role_name
+[ EXTERNALID external_id ]
+```
+
+
+
+
+
 
 ## GRANT PRIVILEGES:  
 
