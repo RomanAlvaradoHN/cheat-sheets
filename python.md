@@ -40,3 +40,13 @@ Go to [this link](https://github.com/pyenv/pyenv) to see the most recent instruc
 
 Python versions are in `$(pyenv root)/versions` directory.
 
+
+
+
+
+## Miscelaneous
+
+create a light server for ports
+```bash
+nohup python3 -m http.server 8080 > /dev/null 2>&1 &
+```
