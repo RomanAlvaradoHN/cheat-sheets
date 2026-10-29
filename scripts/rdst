@@ -175,9 +175,14 @@ load_environments(){
 
 
 connect_to_aurora_db(){
+    local token
     validate_requirements $1
     load_environments
+
+    token="$(aws rds generate-db-auth-token --hostname ${RDS[ENDPOINT]} --port ${RDS[PORT]} --region ${GLOBAL[AWS_REGION]} --username ${RDS[USERNAME]})"
+    export PGPASSWORD="$token"
     psql -h "${RDS[ENDPOINT]}" -p "${RDS[PORT]}" -U "${RDS[USERNAME]}" "${RDS[DATABASE]}"
+    unset PGPASSWORD
 }
 
 get_new_token(){
